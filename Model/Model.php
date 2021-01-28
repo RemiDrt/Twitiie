@@ -16,7 +16,7 @@ class Model {
    */
   private function __construct(){
     try {
-      $this->bd = new PDO('pgsql:dbname=cointflip_guillaume_descroix;host=pgsql', 'tpphp', 'tpphp');
+      $this->bd = new PDO('pgsql:dbname=coinflip_guillaume_descroix;host=pgsql', 'tpphp', 'tpphp');
       $this->bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       $this->bd->query("SET names 'utf-8'");
     } catch(PDOException $e){
@@ -84,7 +84,7 @@ class Model {
     $stmt = $this->bd->prepare($sql);
     $stmt->bindValue(':id', $id, \PDO::PARAM_INT);
     $stmt->execute();
-    $row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_FIRST)
+    $row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_FIRST);
     if($row[1] >= $score){
       $sql = <<<SQL
         UPDATE SCORE
@@ -113,7 +113,7 @@ class Model {
     $stmt = $this->bd->prepare($sql);
     $stmt->bindValue(':id', $id, \PDO::PARAM_INT);
     $stmt->execute();
-    $row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_FIRST)
+    $row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_FIRST);
     if($row[1] >= $score){
       $sql = <<<SQL
         UPDATE SCORE
@@ -142,7 +142,7 @@ class Model {
     $stmt = $this->bd->prepare($sql);
     $stmt->bindValue(':id', $id, \PDO::PARAM_INT);
     $stmt->execute();
-    $row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_FIRST)
+    $row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_FIRST);
     if($row[1] >= $score){
       $sql = <<<SQL
         UPDATE SCORE
@@ -167,18 +167,71 @@ class Model {
   /*
    *
    */
-  function searchPlayerByPseudo(string $pseudo){
+  function PlayerPseudoExist(string $pseudo){
     $sql = <<<SQL
       SELECT id
       FROM PLAYER
-      WHERE id_player = :pseudo;
+      WHERE pseudo = :pseudo;
     SQL;
     $stmt = $this->bd->prepare($sql);
-    $stmt->bindValue(':id', $id, \PDO::PARAM_INT);
+    $stmt->bindValue(':pseudo', $pseudo, \PDO::PARAM_INT);
     $stmt->execute();
-    $row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_FIRST)
+    if($row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_FIRST))
+      return True;
+    else
+      return False;
   }
 
+  /*
+   *
+   */
+  function PlayerMailExist(string $mail){
+    $sql = <<<SQL
+      SELECT id
+      FROM PLAYER
+      WHERE mail = :mail;
+    SQL;
+    $stmt = $this->bd->prepare($sql);
+    $stmt->bindValue(':mail', $mail, \PDO::PARAM_INT);
+    $stmt->execute();
+    if($row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_FIRST))
+      return True;
+    else
+      return False;
+  }
+
+  /*
+   *
+   */
+  function PlayerMailExist(string $mail){
+    $sql = <<<SQL
+      SELECT id
+      FROM PLAYER
+      WHERE mail = :mail;
+    SQL;
+    $stmt = $this->bd->prepare($sql);
+    $stmt->bindValue(':mail', $mail, \PDO::PARAM_INT);
+    $stmt->execute();
+    if($row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_FIRST))
+      return True;
+    else
+      return False;
+  }
+
+  function findPasswordByMail(string $mail){
+    $sql = <<<SQL
+      SELECT id
+      FROM PLAYER
+      WHERE mail = :mail;
+    SQL;
+    $stmt = $this->bd->prepare($sql);
+    $stmt->bindValue(':mail', $mail, \PDO::PARAM_INT);
+    $stmt->execute();
+    if($row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_FIRST))
+      return True;
+    else
+      return False;
+  }
 
 }
 
