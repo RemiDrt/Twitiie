@@ -43,42 +43,53 @@ class Model {
    * Méthodes relatives aux requêtes vers la base de donnée
    */
 
+
   /*
-   *
+   * Add a Player in database
    */
   public function createPlayer(Player $player) {
     for ($i = 0; $i < 3; $i++) {
-      //Création patterne
-      $sql = <<<SQL
+      try{
+        $sql = <<<SQL
         INSERT INTO PATTERN(pattern)
         VALUES('n');
 SQL;
-      $stmt = $this->bd->prepare($sql);
-      $stmt->execute();
-
-      //Création score
-      $sql = <<<SQL
-        INSERT INTO SCORE(score,id_pattern)
-        VALUES(0, currval('PATTERN_ID'));
+        $stmt = $this->bd->prepare($sql);
+        $stmt->execute();
+        //Add score in database (connected to pattern)
+        $sql = <<<SQL
+          INSERT INTO SCORE(score,id_pattern)
+          VALUES(0, currval('PATTERN_ID'));
 SQL;
-      $stmt = $this->bd->prepare($sql);
-      $stmt->execute();
-    }
+        $stmt = $this->bd->prepare($sql);
+        $stmt->execute();
+      } catch(PDOException $e){
 
-    //Création Joueur
-    $sql = <<<SQL
+        die('Echec createPlayer, erreur n°' . $e->getCode() . ':' . $e->getMessage());
+      }
+  
+      //Add pattern in database
+      
+    }
+    //Add player (connected to scores)
+    try {
+      $sql = <<<SQL
       INSERT INTO PLAYER(pseudo,mail,password,id_score_tot,id_score_mon,id_score_week)
       VALUES(:pseudo, :mail, :password, currval('SCORE_ID'), currval('SCORE_ID')-1, currval('SCORE_ID')-2);
 SQL;
-    $stmt = $this->bd->prepare($sql);
-    $stmt->bindValue(':pseudo', $player->getPseudo(), \PDO::PARAM_STR);
-    $stmt->bindValue(':mail', $player->getMail(), \PDO::PARAM_STR);
-    $stmt->bindValue(':password', $player->getPassword(), \PDO::PARAM_STR);
-    $stmt->execute();
+      $stmt = $this->bd->prepare($sql);
+      $stmt->bindValue(':pseudo', $player->getPseudo(), \PDO::PARAM_STR);
+      $stmt->bindValue(':mail', $player->getMail(), \PDO::PARAM_STR);
+      $stmt->bindValue(':password', $player->getPassword(), \PDO::PARAM_STR);
+      $stmt->execute();
+    } catch(PDOException $e){
+      die('Echec createPlayer, erreur n°' . $e->getCode() . ':' . $e->getMessage());
+    }
+    
   }
 
   /*
-   *
+   *  Updates the scores and patterns of the player with the id 'id' if  'score' is higher than or equal to the current scores
    */
   public function updateScorePlayerById(int $id, int $score, string $pattern){
     $sql = <<<SQL
@@ -89,7 +100,7 @@ SQL;
     $stmt = $this->bd->prepare($sql);
     $stmt->bindValue(':id', $id, \PDO::PARAM_INT);
     $stmt->execute();
-    $row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_FIRST);
+    $row = $stmt->fetch();
     if($row[1] >= $score){
       $sql = <<<SQL
         UPDATE SCORE
@@ -118,7 +129,7 @@ SQL;
     $stmt = $this->bd->prepare($sql);
     $stmt->bindValue(':id', $id, \PDO::PARAM_INT);
     $stmt->execute();
-    $row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_FIRST);
+    $row = $stmt->fetch();
     if($row[1] >= $score){
       $sql = <<<SQL
         UPDATE SCORE
@@ -147,7 +158,7 @@ SQL;
     $stmt = $this->bd->prepare($sql);
     $stmt->bindValue(':id', $id, \PDO::PARAM_INT);
     $stmt->execute();
-    $row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_FIRST);
+    $row = $stmt->fetch();
     if($row[1] >= $score){
       $sql = <<<SQL
         UPDATE SCORE
@@ -170,41 +181,61 @@ SQL;
   }
 
   /*
-   *
+   * Return True if there is a player with the pseudo 'pseudo', False otherwise
    */
   public function PlayerPseudoExist(string $pseudo){
-    $sql = <<<SQL
-      SELECT id
+    try{
+      echo "bonjour pseudo existe";
+      $sql = <<<SQL
+      SELECT id_player
       FROM PLAYER
       WHERE pseudo = :pseudo;
 SQL;
-    $stmt = $this->bd->prepare($sql);
-    $stmt->bindValue(':pseudo', $pseudo, \PDO::PARAM_STR);
-    $stmt->execute();
-    if($row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_FIRST))
-      return True;
-    return False;
+      echo "sql bon";
+      $stmt = $this->bd->prepare($sql);
+      echo "prepared";
+      $stmt->bindValue(':pseudo', $pseudo, \PDO::PARAM_STR);
+      echo "binded ";
+      $stmt->execute();
+      echo "executed";
+      if($row = $stmt->fetch())
+        return True;
+      return False;
+    } catch(PDOException $e){
+      die('Echec PlayerPseudoExist, erreur n°' . $e->getCode() . ':' . $e->getMessage());
+    }
+    
   }
 
   /*
-   *
+   * Return True if there is a player with the mail 'mail', False otherwise
    */
   public function PlayerMailExist(string $mail){
+    try{
+      echo "bonjour player mail exist";
     $sql = <<<SQL
-      SELECT id
+      SELECT id_player
       FROM PLAYER
       WHERE mail = :mail;
 SQL;
-    $stmt = $this->bd->prepare($sql);
-    $stmt->bindValue(':mail', $mail, \PDO::PARAM_STR);
-    $stmt->execute();
-    if($row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_FIRST))
-      return True;
-    return False;
+      echo "pgrase sql";
+      $stmt = $this->bd->prepare($sql);
+      echo "prepare";
+      $stmt->bindValue(':mail', $mail, \PDO::PARAM_STR);
+      echo "bind Value";
+      $stmt->execute();
+      echo "executé";
+      if($row = $stmt->fetch())
+        return True;
+      return False;
+    } catch(PDOException $e){
+      die('Echec PlayerMailExist, erreur n°' . $e->getCode() . ':' . $e->getMessage());
+    }
+    
   }
 
   /*
-   *
+   *  Return the password of the player wiche have the mail 'mail', False if there is none
    */
   public function findPasswordByMail(string $mail){
     $sql = <<<SQL
@@ -223,7 +254,7 @@ SQL;
   }
 
   /*
-   *
+   *  Return the password of the player wiche have the pseudo 'pseudo', False if there is none
    */
   public function findPasswordByPseudo(string $pseudo){
     $sql = <<<SQL
@@ -240,7 +271,7 @@ SQL;
   }
 
   /*
-   *
+   *  Return the Top10 player of all time
    */
   public function findTop10Tot(){
     $sql = <<<SQL
@@ -255,7 +286,7 @@ SQL;
   }
 
   /*
-   *
+   * Return the Top10 player of the month
    */
   public function findTop10Mon(){
     $sql = <<<SQL
@@ -270,7 +301,7 @@ SQL;
   }
 
   /*
-   *
+   * Return the Top10 player of the week
    */
   public function findTop10Week(){
     $sql = <<<SQL
@@ -286,7 +317,7 @@ SQL;
 
 
   /*
-   *
+   * Returns all information about the player who has the mail 'mail'
    */
   public function findPlayerByMail(string $mail){
     $sql = <<<SQL
@@ -294,25 +325,17 @@ SQL;
       FROM PLAYER
       WHERE mail = :mail;
 SQL;
-
     $stmt = $this->bd->prepare($sql);
-
-    echo $mail;
     $stmt->bindValue(':mail', $mail, \PDO::PARAM_STR);
-
     $stmt->execute();
-
-    while($row = $stmt->fetch()){
-
+    if($row = $stmt->fetch())
       return $row;
-    }
-
-      return False;
+    return False;
   }
 
 
   /*
-   *
+   *  Returns all the scores and patterns of the player with the pseudo 'pseudo'
    */
   public function findScoreByPseudo(string $pseudo){
     $sql = <<<SQL
@@ -324,9 +347,39 @@ SQL;
     $stmt = $this->bd->prepare($sql);
     $stmt->bindValue(':pseudo', $pseudo, \PDO::PARAM_STR);
     $stmt->execute();
-    if($row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_FIRST))
+    if($row = $stmt->fetch())
       return $row;
     else
       return False;
+  }
+
+  /*
+   *  Update the password of the player 'pseudo'
+   */
+  public function modifyPasswordByPseudo(string $pseudo, string $password){
+    $sql = <<<SQL
+      UPDATE PLAYER
+      SET password = :password
+      WHERE pseudo = :pseudo;
+SQL;
+    $stmt = $this->bd->prepare($sql);
+    $stmt->bindValue(':pseudo', $pseudo, \PDO::PARAM_STR);
+    $stmt->bindValue(':password', $password, \PDO::PARAM_STR);
+    $stmt->execute();
+  }
+
+  /*
+   *  Update the mail of the player 'pseudo'
+   */
+  public function modifyMailByPseudo(string $pseudo, string $mail){
+    $sql = <<<SQL
+      UPDATE PLAYER
+      SET mail = :mail
+      WHERE pseudo = :pseudo;
+SQL;
+    $stmt = $this->bd->prepare($sql);
+    $stmt->bindValue(':pseudo', $pseudo, \PDO::PARAM_STR);
+    $stmt->bindValue(':mail', $mail, \PDO::PARAM_STR);
+    $stmt->execute();
   }
 }

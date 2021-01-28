@@ -18,7 +18,6 @@ $nom_classe = 'Controller'.$nom_controller;
 
 //on determine le nom du fihier contenant la définition du controleur
 $nom_fichier = 'Controller/'.$nom_classe.'.php';
-
 //Si le fichier existe
 if(file_exists($nom_fichier)) {
     include_once $nom_fichier;
