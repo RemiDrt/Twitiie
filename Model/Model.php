@@ -222,7 +222,7 @@ class Model {
 
     while($row = $stmt->fetch() ) {
 
-      return $row['pseudo'];
+      return $row[0];
 
     }
 
@@ -242,7 +242,7 @@ class Model {
     $stmt->bindValue(':pseudo', $pseudo, \PDO::PARAM_STR);
     $stmt->execute();
     if($row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_FIRST))
-      return $row[0];
+      return $row;
     else
       return False;
   }
@@ -305,6 +305,7 @@ class Model {
 
     $stmt = $this->bd->prepare($sql);
 
+    echo $mail;
     $stmt->bindValue(':mail', $mail, \PDO::PARAM_STR);
 
     $stmt->execute();

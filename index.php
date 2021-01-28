@@ -1,7 +1,4 @@
 <?php
-echo "ok";
-
-
 require "Model/Model.php"; // a voir dans le futur si on en a vrmt besoin ici
 require "Model/Player.php"; // a voir dans le futur si on en a vrmt besoin ici
 require "Controller/Controller.php"; //Inclusion de la classe Controller
