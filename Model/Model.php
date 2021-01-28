@@ -316,6 +316,42 @@ class Model {
     else
       return False;
   }
+
+  /*
+   *
+   */
+  function findScoreByPseudo(string $pseudo){
+    $sql = <<<SQL
+      SELECT *
+      FROM PLAYER
+      WHERE mail = :mail;
+    SQL;
+    $stmt = $this->bd->prepare($sql);
+    $stmt->bindValue(':mail', $mail, \PDO::PARAM_STR);
+    $stmt->execute();
+    if($row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_FIRST))
+      return $row;
+    else
+      return False;
+  }
+
+  /*
+   *
+   */
+  function findScoreByPseudo(string $pseudo){
+    $sql = <<<SQL
+      SELECT pseudo, tot.score AS scoreTot, mon.score AS scoreMon, week.score AS scoreWeek
+      FROM PLAYER INNER JOIN SCORE tot ON PLAYER.id_score_mon = tot.id_score INNER JOIN SCORE mon ON PLAYER.id_score_mon = mon.id_score INNER JOIN SCORE week ON PLAYER.id_score_mon = week.id_score
+      WHERE pseudo = :pseudo;
+    SQL;
+    $stmt = $this->bd->prepare($sql);
+    $stmt->bindValue(':pseudo', $pseudo, \PDO::PARAM_STR);
+    $stmt->execute();
+    if($row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_FIRST))
+      return $row;
+    else
+      return False;
+  }
 }
 
 ?>

@@ -7,7 +7,7 @@ class ControllerInscription extends Controller {
          * tester les fonction et mettre tous les resultats dans le tableau $data
          */
         $data = [];
-        $this->render("Test", $data);
+        $this->render("Inscription", $data);
         
     }
 
