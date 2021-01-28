@@ -1,8 +1,8 @@
-<?php require "view_Header.php"; ?>
+<?php require "Header.php"; ?>
 
 <div id="container">
    	<div id="formulaire">
-        <form action="verification.php" method="post">
+        <form action="?controller=Connexion&action=connexion" method="post">
                    
                     <label><b>Nom d'utilisateur</b></label>
                     <input type="text" placeholder="Entrez le nom d'utilisateur" name="username" required>
@@ -12,10 +12,10 @@
                     <input type="submit" id='submit' value='Connexion' >
         </form>
 
-        <a href="inscription.php"> Inscription </a>
+        <a href="?controller=Inscription&action=inscription"> Inscription </a>
 
     </div>
 
 </div>
 
-<?php require "view_Footer.php"; ?>
+<?php require "Footer.php"; ?>
