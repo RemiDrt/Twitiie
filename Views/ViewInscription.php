@@ -1,10 +1,12 @@
-<?php require_once "Header.php"; ?>
-<?php if(isset(data["message_err"])): echo '<p>'.data["message_err"].'</p>';?>
+<?php require_once "Header.php";
+echo "bonjour ici la vue";
+?>
+<?php if(isset($data["message_err"])){echo '<p>'.$data["message_err"].'</p>';} ?>
 
 <div id="container">
 
     <div id="formulaire-inscription">
-        <form action="?controller=Inscription&action=inscription" method="post">
+        <form action="?controller=Inscription&action=formInscription" method="post">
 
             <label><b>Nom d'utilisateur</b></label>
             <input type="text" placeholder="Entrez un pseudo" name="username" required>

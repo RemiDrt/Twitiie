@@ -20,11 +20,17 @@ $nom_classe = 'Controller'.$nom_controller;
 
 //on determine le nom du fihier contenant la définition du controleur
 $nom_fichier = 'Controller/'.$nom_classe.'.php';
-
+echo "coucou";
 //Si le fichier existe
 if(file_exists($nom_fichier)) {
+    echo "oui  ";
     include_once $nom_fichier;
+    echo $nom_fichier;
+    echo "   apres include   ";
+    echo $nom_classe;
     $controller = new $nom_classe();
+    echo " instanciation ";
 } else {
+    echo " non ";
     exit("Error 404: not found!");
 }
