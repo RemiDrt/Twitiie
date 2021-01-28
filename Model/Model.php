@@ -78,8 +78,8 @@ class Model {
   function updateScorePlayerById(int $id, int $score, string $pattern){
     $sql = <<<SQL
       SELECT id_score, score, id_pattern
-      FROM CLIENT INNER JOIN SCORE ON CLIENT.id_score_tot = SCORE.id_score
-      WHERE num_client = :id;
+      FROM PLAYER INNER JOIN SCORE ON PLAYER.id_score_tot = SCORE.id_score
+      WHERE id_player = :id;
     SQL;
     $stmt = $this->bd->prepare($sql);
     $stmt->bindValue(':id', $id, \PDO::PARAM_INT);
@@ -98,7 +98,7 @@ class Model {
       $sql = <<<SQL
         UPDATE pattern
         SET pattern = :pattern
-        WHERE id_patterne = :id;
+        WHERE id_pattern = :id;
       SQL;
       $stmt->bindValue(':id', $row[2], \PDO::PARAM_INT);
       $stmt->bindValue(':pattern', $pattern, \PDO::PARAM_STR);
@@ -107,8 +107,8 @@ class Model {
 
     $sql = <<<SQL
       SELECT id_score, score, id_pattern
-      FROM CLIENT INNER JOIN SCORE ON CLIENT.id_score_mon = SCORE.id_score
-      WHERE num_client = :id;
+      FROM PLAYER INNER JOIN SCORE ON PLAYER.id_score_mon = SCORE.id_score
+      WHERE id_player = :id;
     SQL;
     $stmt = $this->bd->prepare($sql);
     $stmt->bindValue(':id', $id, \PDO::PARAM_INT);
@@ -127,7 +127,7 @@ class Model {
       $sql = <<<SQL
         UPDATE pattern
         SET pattern = :pattern
-        WHERE id_patterne = :id;
+        WHERE id_pattern = :id;
       SQL;
       $stmt->bindValue(':id', $row[2], \PDO::PARAM_INT);
       $stmt->bindValue(':pattern', $pattern, \PDO::PARAM_STR);
@@ -136,8 +136,8 @@ class Model {
 
     $sql = <<<SQL
       SELECT id_score, score, id_pattern
-      FROM CLIENT INNER JOIN SCORE ON CLIENT.id_score_week = SCORE.id_score
-      WHERE num_client = :id;
+      FROM PLAYER INNER JOIN SCORE ON PLAYER.id_score_week = SCORE.id_score
+      WHERE id_player = :id;
     SQL;
     $stmt = $this->bd->prepare($sql);
     $stmt->bindValue(':id', $id, \PDO::PARAM_INT);
@@ -156,12 +156,27 @@ class Model {
       $sql = <<<SQL
         UPDATE pattern
         SET pattern = :pattern
-        WHERE id_patterne = :id;
+        WHERE id_pattern = :id;
       SQL;
       $stmt->bindValue(':id', $row[2], \PDO::PARAM_INT);
       $stmt->bindValue(':pattern', $pattern, \PDO::PARAM_STR);
       $stmt->execute();
     }
+  }
+
+  /*
+   *
+   */
+  function searchPlayerByPseudo(string $pseudo){
+    $sql = <<<SQL
+      SELECT id
+      FROM PLAYER
+      WHERE id_player = :pseudo;
+    SQL;
+    $stmt = $this->bd->prepare($sql);
+    $stmt->bindValue(':id', $id, \PDO::PARAM_INT);
+    $stmt->execute();
+    $row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_FIRST)
   }
 
 }
