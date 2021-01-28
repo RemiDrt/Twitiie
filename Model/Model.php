@@ -43,7 +43,7 @@ class Model {
    */
   function createPlayer(Player $player) {
     for ($i = 0; $i < 3; $i++) {
-      //Création paterne
+      //Création patterne
       $sql = <<<SQL
         INSERT INTO PATTERN(pattern)
         VALUES('n');
@@ -67,23 +67,101 @@ class Model {
     SQL;
     $stmt = $this->bd->prepare($sql);
     $stmt->bindValue(':pseudo', $player->getPseudo(), \PDO::PARAM_STR);
-    $stmt->bindValue(':mail', $player->getMail(), \PDO::PARAM_INT);
-    $stmt->bindValue(':password', $player->getPassword(), \PDO::PARAM_INT);
+    $stmt->bindValue(':mail', $player->getMail(), \PDO::PARAM_STR);
+    $stmt->bindValue(':password', $player->getPassword(), \PDO::PARAM_STR);
     $stmt->execute();
   }
 
   /*
-   *  A FINIR
+   *
    */
-  function updateScorePlayerById(int $id, int $score) {
+  function updateScorePlayerById(int $id, int $score, string $pattern){
     $sql = <<<SQL
-      SELECT score
-      FROM CLIENT NATURAL JOIN SCORE ON CLIENT.id_score_tot = SCORE.id_score
+      SELECT id_score, score, id_pattern
+      FROM CLIENT INNER JOIN SCORE ON CLIENT.id_score_tot = SCORE.id_score
       WHERE num_client = :id;
     SQL;
-    $stmt = $this->dbAdapter->prepare($sql);
+    $stmt = $this->bd->prepare($sql);
     $stmt->bindValue(':id', $id, \PDO::PARAM_INT);
     $stmt->execute();
+    $row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_FIRST)
+    if($row[1] >= $score){
+      $sql = <<<SQL
+        UPDATE SCORE
+        SET score = :score
+        WHERE id_score = :id;
+      SQL;
+      $stmt->bindValue(':id', $row[0], \PDO::PARAM_INT);
+      $stmt->bindValue(':score', $score, \PDO::PARAM_INT);
+      $stmt->execute();
+
+      $sql = <<<SQL
+        UPDATE pattern
+        SET pattern = :pattern
+        WHERE id_patterne = :id;
+      SQL;
+      $stmt->bindValue(':id', $row[2], \PDO::PARAM_INT);
+      $stmt->bindValue(':pattern', $pattern, \PDO::PARAM_STR);
+      $stmt->execute();
+    }
+
+    $sql = <<<SQL
+      SELECT id_score, score, id_pattern
+      FROM CLIENT INNER JOIN SCORE ON CLIENT.id_score_mon = SCORE.id_score
+      WHERE num_client = :id;
+    SQL;
+    $stmt = $this->bd->prepare($sql);
+    $stmt->bindValue(':id', $id, \PDO::PARAM_INT);
+    $stmt->execute();
+    $row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_FIRST)
+    if($row[1] >= $score){
+      $sql = <<<SQL
+        UPDATE SCORE
+        SET score = :score
+        WHERE id_score = :id;
+      SQL;
+      $stmt->bindValue(':id', $row[0], \PDO::PARAM_INT);
+      $stmt->bindValue(':score', $score, \PDO::PARAM_INT);
+      $stmt->execute();
+
+      $sql = <<<SQL
+        UPDATE pattern
+        SET pattern = :pattern
+        WHERE id_patterne = :id;
+      SQL;
+      $stmt->bindValue(':id', $row[2], \PDO::PARAM_INT);
+      $stmt->bindValue(':pattern', $pattern, \PDO::PARAM_STR);
+      $stmt->execute();
+    }
+
+    $sql = <<<SQL
+      SELECT id_score, score, id_pattern
+      FROM CLIENT INNER JOIN SCORE ON CLIENT.id_score_week = SCORE.id_score
+      WHERE num_client = :id;
+    SQL;
+    $stmt = $this->bd->prepare($sql);
+    $stmt->bindValue(':id', $id, \PDO::PARAM_INT);
+    $stmt->execute();
+    $row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_FIRST)
+    if($row[1] >= $score){
+      $sql = <<<SQL
+        UPDATE SCORE
+        SET score = :score
+        WHERE id_score = :id;
+      SQL;
+      $stmt->bindValue(':id', $row[0], \PDO::PARAM_INT);
+      $stmt->bindValue(':score', $score, \PDO::PARAM_INT);
+      $stmt->execute();
+
+      $sql = <<<SQL
+        UPDATE pattern
+        SET pattern = :pattern
+        WHERE id_patterne = :id;
+      SQL;
+      $stmt->bindValue(':id', $row[2], \PDO::PARAM_INT);
+      $stmt->bindValue(':pattern', $pattern, \PDO::PARAM_STR);
+      $stmt->execute();
+    }
   }
 
 }
