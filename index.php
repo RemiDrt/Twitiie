@@ -12,7 +12,7 @@ if (isset($_GET['controller']) and in_array($_GET['controller'], $controllers)) 
 } else {
     $nom_controller = $controller_default;
 }
-var_dump($nom_controller);
+
 //on determine le nom de l aclasse du contrôleur
 $nom_classe = 'Controller'.$nom_controller;
 

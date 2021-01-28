@@ -1,23 +1,43 @@
 var scoreNb = 0;
+var array = [];
 var score = document.getElementById("Score")
 score.textContent = scoreNb
 function coinFlip(element){
     var score = document.getElementById("Score")
-    console.log("score : " + score);
-    console.log("score.value : " + score.textContent);
     var res = Math.round(Math.random());
-    console.log(res);
-    console.log(element.id);
     var egal = res == element.id; 
-    console.log(egal);
+
     if (element.id == res) {
         scoreNb = scoreNb + 1
-        score.style.color = 'green';
+        array.push(res);
     }
     else {
         scoreNb = 0
-        score.style.color = 'red';
+        array = [];
     }
     score.textContent = scoreNb;
     return element.id == res;
+}
+
+window.onload = function() {
+    document.getElementById("sauvegarde").onclick = function func() {
+
+        sendToPhp();
+        array = [];
+        score.textContent = 0
+
+    }
+}
+
+function sendToPhp() {
+  var xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "../test.php", true); 
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    xhttp.onreadystatechange = function() {
+    };
+
+    var data = {pattern: array };
+    xhttp.send(JSON.stringify(data));
+    alert(array);
+
 }
