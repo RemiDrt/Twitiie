@@ -1,12 +1,50 @@
-<?php
+<?php 
 
 class ControllerConnexion extends Controller{
 
   public function action_connexion(){
+
     $mod = Model::getModel();
+
     $req = $mod->findPlayerByMail(htmlspecialchars($_POST['mail']));
-    $data = ['UserObject' => $req];
-    $this->render("Connexion", $data);
+
+    // Si e-mail indiqué dans le formulaire 
+    if( $req != false AND isset($_POST['mail']) ){
+
+
+		$passwordEncrypted = password_hash($_POST['password'], PASSWORD_DEFAULT);
+		  // Si le mot de passe encrypté correspond au mot de passe encrypté de la bdd
+    	if ( $passwordEncrypted == $req['password']  ) {
+
+    		session_start();
+    		$_SESSION['userObject'] = $req;
+    		$data = ['userID' => $req['id'] ];
+    		$this->render("Home", $data);
+
+    	} else{
+
+    		$data = ['e_message' => "Mot de passe incorrect"];
+    		$this->render("Connexion", $data);
+
+    	}
+
+    }
+
+     if ( $req == false AND isset($_POST['mail'])) {
+
+    	$data = ['e_message' => "E-mail Incorrect"];
+    	$this->render("Connexion", $data);
+
+    }
+    	
+
+    if (!isset($_POST['mail'])) {
+
+    	$data = ['e_message' => ""];
+    	$this->render("Connexion", $data);
+
+    }
+
   }
 
 
@@ -21,3 +59,25 @@ class ControllerConnexion extends Controller{
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
