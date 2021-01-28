@@ -302,8 +302,9 @@ class Model {
   /*
    *
    */
-  public static function findPlayerByMail(string $mail){
-    $sql = <<<SQL
+public static function findPlayerByMail(string $mail){
+    $sql = 
+    <<<SQL
       SELECT *
       FROM PLAYER
       WHERE mail = :mail;
@@ -311,10 +312,15 @@ class Model {
     $stmt = $this->bd->prepare($sql);
     $stmt->bindValue(':mail', $mail, \PDO::PARAM_STR);
     $stmt->execute();
+    foreach ($stmt->fetchAll() as $raw) {
+        return $raw;
+    }
+    /*
     if($row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_FIRST))
       return $row;
     else
       return False;
+    */
   }
 
   /*

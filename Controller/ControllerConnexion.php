@@ -1,11 +1,11 @@
 <?php 
 
-class Controller_connexion extends Controller{
+class ControllerConnexion extends Controller{
 
   public function action_connexion(){
-    $mod = Model::getModel();
-    $req = $mod->getUserConnexion( htmlspecialchars( $_POST['pseudo'] ), htmlspecialchars( $_POST['password'] ));
-    $data = ['User' => $req];
+    //$mod = Model::getModel();
+    //$req = $mod->getUserConnexion( htmlspecialchars( $_POST['pseudo'] ), htmlspecialchars( $_POST['password'] ));
+    $data = ['User' => "ok"];
     $this->render("Connexion", $data);
   }
 
