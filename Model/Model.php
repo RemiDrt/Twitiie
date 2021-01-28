@@ -15,7 +15,6 @@ class Model {
    * Constructeur : effectue la connexion à la base de données
    */
   private function __construct(){
-
     try {
 
       $this->bd = new PDO('pgsql:dbname=coinflip_guillaume_descroix;host=pgsql', 'tpphp', 'tpphp');
@@ -184,8 +183,7 @@ SQL;
     $stmt->execute();
     if($row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_FIRST))
       return True;
-    else
-      return False;
+    return False;
   }
 
   /*
@@ -202,8 +200,7 @@ SQL;
     $stmt->execute();
     if($row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_FIRST))
       return True;
-    else
-      return False;
+    return False;
   }
 
   /*
@@ -220,13 +217,9 @@ SQL;
 
     $stmt->execute();
 
-    while($row = $stmt->fetch() ) {
-
-      return $row[0];
-
-    }
-
-      return False;
+    if($row = $stmt->fetch())
+      return $row;
+    return False;
   }
 
   /*
@@ -241,10 +234,9 @@ SQL;
     $stmt = $this->bd->prepare($sql);
     $stmt->bindValue(':pseudo', $pseudo, \PDO::PARAM_STR);
     $stmt->execute();
-    if($row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_FIRST))
+    if($row = $stmt->fetch())
       return $row;
-    else
-      return False;
+    return False;
   }
 
   /*
