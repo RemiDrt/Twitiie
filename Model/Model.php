@@ -4,7 +4,7 @@ class Model {
   /*
    * Attribut contenant l'instance PDO
    */
-  public $bd;
+  private $bd;
 
   /*
    * Attribut statique qui contiendra l'unique instance de Model
@@ -47,13 +47,13 @@ class Model {
   /*
    *
    */
-  public  function createPlayer(Player $player) {
+  public function createPlayer(Player $player) {
     for ($i = 0; $i < 3; $i++) {
       //Création patterne
       $sql = <<<SQL
         INSERT INTO PATTERN(pattern)
         VALUES('n');
-      SQL;
+SQL;
       $stmt = $this->bd->prepare($sql);
       $stmt->execute();
 
@@ -61,7 +61,7 @@ class Model {
       $sql = <<<SQL
         INSERT INTO SCORE(score,id_pattern)
         VALUES(0, currval('PATTERN_ID'));
-      SQL;
+SQL;
       $stmt = $this->bd->prepare($sql);
       $stmt->execute();
     }
@@ -70,7 +70,7 @@ class Model {
     $sql = <<<SQL
       INSERT INTO PLAYER(pseudo,mail,password,id_score_tot,id_score_mon,id_score_week)
       VALUES(:pseudo, :mail, :password, currval('SCORE_ID'), currval('SCORE_ID')-1, currval('SCORE_ID')-2);
-    SQL;
+SQL;
     $stmt = $this->bd->prepare($sql);
     $stmt->bindValue(':pseudo', $player->getPseudo(), \PDO::PARAM_STR);
     $stmt->bindValue(':mail', $player->getMail(), \PDO::PARAM_STR);
@@ -81,12 +81,12 @@ class Model {
   /*
    *
    */
-  public  function updateScorePlayerById(int $id, int $score, string $pattern){
+  public function updateScorePlayerById(int $id, int $score, string $pattern){
     $sql = <<<SQL
       SELECT id_score, score, id_pattern
       FROM PLAYER INNER JOIN SCORE ON PLAYER.id_score_tot = SCORE.id_score
       WHERE id_player = :id;
-    SQL;
+SQL;
     $stmt = $this->bd->prepare($sql);
     $stmt->bindValue(':id', $id, \PDO::PARAM_INT);
     $stmt->execute();
@@ -96,7 +96,7 @@ class Model {
         UPDATE SCORE
         SET score = :score
         WHERE id_score = :id;
-      SQL;
+SQL;
       $stmt->bindValue(':id', $row[0], \PDO::PARAM_INT);
       $stmt->bindValue(':score', $score, \PDO::PARAM_INT);
       $stmt->execute();
@@ -105,7 +105,7 @@ class Model {
         UPDATE pattern
         SET pattern = :pattern
         WHERE id_pattern = :id;
-      SQL;
+SQL;
       $stmt->bindValue(':id', $row[2], \PDO::PARAM_INT);
       $stmt->bindValue(':pattern', $pattern, \PDO::PARAM_STR);
       $stmt->execute();
@@ -115,7 +115,7 @@ class Model {
       SELECT id_score, score, id_pattern
       FROM PLAYER INNER JOIN SCORE ON PLAYER.id_score_mon = SCORE.id_score
       WHERE id_player = :id;
-    SQL;
+SQL;
     $stmt = $this->bd->prepare($sql);
     $stmt->bindValue(':id', $id, \PDO::PARAM_INT);
     $stmt->execute();
@@ -125,7 +125,7 @@ class Model {
         UPDATE SCORE
         SET score = :score
         WHERE id_score = :id;
-      SQL;
+SQL;
       $stmt->bindValue(':id', $row[0], \PDO::PARAM_INT);
       $stmt->bindValue(':score', $score, \PDO::PARAM_INT);
       $stmt->execute();
@@ -134,7 +134,7 @@ class Model {
         UPDATE pattern
         SET pattern = :pattern
         WHERE id_pattern = :id;
-      SQL;
+SQL;
       $stmt->bindValue(':id', $row[2], \PDO::PARAM_INT);
       $stmt->bindValue(':pattern', $pattern, \PDO::PARAM_STR);
       $stmt->execute();
@@ -144,7 +144,7 @@ class Model {
       SELECT id_score, score, id_pattern
       FROM PLAYER INNER JOIN SCORE ON PLAYER.id_score_week = SCORE.id_score
       WHERE id_player = :id;
-    SQL;
+SQL;
     $stmt = $this->bd->prepare($sql);
     $stmt->bindValue(':id', $id, \PDO::PARAM_INT);
     $stmt->execute();
@@ -154,7 +154,7 @@ class Model {
         UPDATE SCORE
         SET score = :score
         WHERE id_score = :id;
-      SQL;
+SQL;
       $stmt->bindValue(':id', $row[0], \PDO::PARAM_INT);
       $stmt->bindValue(':score', $score, \PDO::PARAM_INT);
       $stmt->execute();
@@ -163,7 +163,7 @@ class Model {
         UPDATE pattern
         SET pattern = :pattern
         WHERE id_pattern = :id;
-      SQL;
+SQL;
       $stmt->bindValue(':id', $row[2], \PDO::PARAM_INT);
       $stmt->bindValue(':pattern', $pattern, \PDO::PARAM_STR);
       $stmt->execute();
@@ -173,12 +173,12 @@ class Model {
   /*
    *
    */
-  public  function PlayerPseudoExist(string $pseudo){
+  public function PlayerPseudoExist(string $pseudo){
     $sql = <<<SQL
       SELECT id
       FROM PLAYER
       WHERE pseudo = :pseudo;
-    SQL;
+SQL;
     $stmt = $this->bd->prepare($sql);
     $stmt->bindValue(':pseudo', $pseudo, \PDO::PARAM_STR);
     $stmt->execute();
@@ -191,12 +191,12 @@ class Model {
   /*
    *
    */
-  public  function PlayerMailExist(string $mail){
+  public function PlayerMailExist(string $mail){
     $sql = <<<SQL
       SELECT id
       FROM PLAYER
       WHERE mail = :mail;
-    SQL;
+SQL;
     $stmt = $this->bd->prepare($sql);
     $stmt->bindValue(':mail', $mail, \PDO::PARAM_STR);
     $stmt->execute();
@@ -209,12 +209,12 @@ class Model {
   /*
    *
    */
-  public  function findPasswordByMail(string $mail){
+  public function findPasswordByMail(string $mail){
     $sql = <<<SQL
       SELECT password
       FROM PLAYER
       WHERE mail = :mail;
-    SQL;
+SQL;
     $stmt = $this->bd->prepare($sql);
     $stmt->bindValue(':mail', $mail, \PDO::PARAM_STR);
 
@@ -232,12 +232,12 @@ class Model {
   /*
    *
    */
-  public  function findPasswordByPseudo(string $pseudo){
+  public function findPasswordByPseudo(string $pseudo){
     $sql = <<<SQL
       SELECT password
       FROM PLAYER
       WHERE pseudo = :pseudo;
-    SQL;
+SQL;
     $stmt = $this->bd->prepare($sql);
     $stmt->bindValue(':pseudo', $pseudo, \PDO::PARAM_STR);
     $stmt->execute();
@@ -250,13 +250,13 @@ class Model {
   /*
    *
    */
-  public  function findTop10Tot(){
+  public function findTop10Tot(){
     $sql = <<<SQL
       SELECT pseudo, score
       FROM PLAYER INNER JOIN SCORE ON PLAYER.id_score_tot = SCORE.id_score
       ORDER BY score DESC
       FETCH FIRST 10 ROWS ONLY;
-    SQL;
+SQL;
     $stmt = $this->bd->prepare($sql);
     $stmt->execute();
     return $stmt->fetchAll();
@@ -265,13 +265,13 @@ class Model {
   /*
    *
    */
-  public  function findTop10Mon(){
+  public function findTop10Mon(){
     $sql = <<<SQL
       SELECT pseudo, score
       FROM PLAYER INNER JOIN SCORE ON PLAYER.id_score_mon = SCORE.id_score
       ORDER BY score DESC
       FETCH FIRST 10 ROWS ONLY;
-    SQL;
+SQL;
     $stmt = $this->bd->prepare($sql);
     $stmt->execute();
     return $stmt->fetchAll();
@@ -280,13 +280,13 @@ class Model {
   /*
    *
    */
-  public  function findTop10Week(){
+  public function findTop10Week(){
     $sql = <<<SQL
       SELECT pseudo, score
       FROM PLAYER INNER JOIN SCORE ON PLAYER.id_score_week = SCORE.id_score
       ORDER BY score DESC
       FETCH FIRST 10 ROWS ONLY;
-    SQL;
+SQL;
     $stmt = $this->bd->prepare($sql);
     $stmt->execute();
     return $stmt->fetchAll();
@@ -301,7 +301,7 @@ class Model {
       SELECT *
       FROM PLAYER
       WHERE mail = :mail;
-    SQL;
+SQL;
 
     $stmt = $this->bd->prepare($sql);
 
@@ -322,13 +322,13 @@ class Model {
   /*
    *
    */
-  public  function findScoreByPseudo(string $pseudo){
+  public function findScoreByPseudo(string $pseudo){
     $sql = <<<SQL
       SELECT pseudo, stot.score AS scoreTot, ptot.pattern AS patternTot, smon.score AS scoreMon, pmon.pattern AS patternMon, sweek.score AS scoreWeek, pweek.pattern AS patternWeek
       FROM PLAYER INNER JOIN SCORE stot ON PLAYER.id_score_mon = stot.id_score INNER JOIN SCORE smon ON PLAYER.id_score_mon = smon.id_score INNER JOIN SCORE sweek ON PLAYER.id_score_mon = sweek.id_score
       INNER JOIN PATTERN ptot ON stot.id_pattern = ptot.id_pattern INNER JOIN PATTERN pmon ON smon.id_pattern = pmon.id_pattern INNER JOIN PATTERN pweek ON sweek.id_pattern = pweek.id_pattern
       WHERE pseudo = :pseudo;
-    SQL;
+SQL;
     $stmt = $this->bd->prepare($sql);
     $stmt->bindValue(':pseudo', $pseudo, \PDO::PARAM_STR);
     $stmt->execute();
@@ -338,5 +338,3 @@ class Model {
       return False;
   }
 }
-
-?>
