@@ -1,5 +1,4 @@
 <?php
-
 require_once "Model/Model.php"; //Inclusion du modèle
 require_once "Model/Player.php"; // a voir dans le futur si on en a vrmt besoin ici
 require_once "Controller/Controller.php"; //Inclusion de la classe Controller

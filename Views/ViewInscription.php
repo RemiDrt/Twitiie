@@ -1,4 +1,5 @@
 <?php require "Header.php"; ?>
+<?php if(isset(data["message_err"])): echo '<p>'.data["message_err"].'</p>';?>
 
 <div id="container">
 
