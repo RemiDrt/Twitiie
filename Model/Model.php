@@ -67,8 +67,8 @@ class Model {
     SQL;
     $stmt = $this->bd->prepare($sql);
     $stmt->bindValue(':pseudo', $player->getPseudo(), \PDO::PARAM_STR);
-    $stmt->bindValue(':mail', $player->getMail(), \PDO::PARAM_INT);
-    $stmt->bindValue(':password', $player->getPassword(), \PDO::PARAM_INT);
+    $stmt->bindValue(':mail', $player->getMail(), \PDO::PARAM_STR);
+    $stmt->bindValue(':password', $player->getPassword(), \PDO::PARAM_STR);
     $stmt->execute();
   }
 
