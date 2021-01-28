@@ -17,21 +17,37 @@ class ControllerInscription extends Controller {
         $data = [];
         echo "test 2 ";
         var_dump($_POST);
+        var_dump($mod);
         if ($pass != $pass_conf) {
             echo "test pass differents";
             $data["message_err"] = "Erreurs veuillez saisir le même mot de passe";
             $this->render("Inscription", $data);
             echo "test pass differents";
         }
-        elseif($mod->PlayerMailExist($mail)){
+        else{
+            echo "bons mdp";
+        }
+        $test1 = "vrai";
+        echo $test1;
+        echo $mail;
+        $test1 = $mod->PlayerMailExist($mail);
+        echo "fonction done ";
+        if( $test1 != false){
             echo "mail exi";
             $data["message_err"] = "Erreurs mail dejà attribuée";
             $this->render("Inscription", $data);
         }
-        elseif($mod->PlayerPseudoExist($pseudo)) {
+        else {
+            echo "mail existe pas";
+        }
+        echo $usr;
+        if($mod->PlayerPseudoExist($usr)) {
             echo "pseudo exi";
             $data["message_err"] = "Erreurs pseudo dejà attribué";
             $this->render("Inscription", $data);
+        }
+        else {
+            echo "pseudo existe pas ";
         }
         echo "avant insert ";
         $mdp_crypt = password_hash($pass, PASSWORD_DEFAULT);
