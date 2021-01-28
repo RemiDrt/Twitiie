@@ -1,0 +1,41 @@
+
+body{
+
+	margin: 0;
+	background-image:url('porte.png');
+
+}
+
+#container{
+
+	width:100%;
+
+}
+
+#formulaire{
+
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+	background-color: #669CED;
+	width:400px;
+	margin-top: 50vh; 
+	transform: translateY(-50%);
+	border-radius: 5px;
+	padding: 15px;
+
+}
+
+#formulaire > form > input{
+
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+
+}
+
+#formulaire label{
+
+	text-align:center;
+
+}

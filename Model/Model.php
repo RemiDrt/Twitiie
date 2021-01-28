@@ -179,6 +179,7 @@ class Model {
     $row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_FIRST)
   }
 
+
 }
 
 ?>
