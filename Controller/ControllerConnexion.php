@@ -6,7 +6,7 @@ class Controller_connexion extends Controller{
     $mod = Model::getModel();
     $req = $mod->getUserConnexion( htmlspecialchars( $_POST['pseudo'] ), htmlspecialchars( $_POST['password'] ));
     $data = ['User' => $req];
-    $this->render("connexion", $data);
+    $this->render("Connexion", $data);
   }
 
 
