@@ -32,7 +32,7 @@ abstract class Controller {
         //extraire les données à afficher
         extract($data);
 
-        //tester si la vue existe 
+        //tester si la vue existe
         $file_name = "Views/View".$vue.'.php';
         if(file_exists($file_name)){
             include $file_name;
@@ -55,4 +55,3 @@ abstract class Controller {
         $this->render("message", $data);
     }
 }
-?>

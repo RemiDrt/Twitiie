@@ -25,11 +25,10 @@ class ControllerInscription extends Controller {
         $req = $mod->createPlayer($player);
         $data["message_success"] = "Joueur ajouter avec succès";
         $this->render("Connexion", $data);
-        
+
     }
 
     public function action_default(){
         $this->action_inscription();
     }
 }
-?>

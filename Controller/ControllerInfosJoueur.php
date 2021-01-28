@@ -8,11 +8,10 @@ class ControllerInfosJoueur extends Controller {
          */
         $data = [];
         $this->render("InfosJoueur", $data);
-        
+
     }
 
     public function action_default(){
         $this->action_infosJoueurs();
     }
 }
-?>

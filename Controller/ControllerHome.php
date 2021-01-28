@@ -8,11 +8,10 @@ class ControllerHome extends Controller {
          */
         $data = [];
         $this->render("Test", $data);
-        
+
     }
 
     public function action_default(){
         $this->action_test();
     }
 }
-?>

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class ControllerConnexion extends Controller{
 
@@ -21,25 +21,3 @@ class ControllerConnexion extends Controller{
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
