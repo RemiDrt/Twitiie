@@ -185,19 +185,14 @@ SQL;
    */
   public function PlayerPseudoExist(string $pseudo){
     try{
-      echo "bonjour pseudo existe";
       $sql = <<<SQL
       SELECT id_player
       FROM PLAYER
       WHERE pseudo = :pseudo;
 SQL;
-      echo "sql bon";
       $stmt = $this->bd->prepare($sql);
-      echo "prepared";
       $stmt->bindValue(':pseudo', $pseudo, \PDO::PARAM_STR);
-      echo "binded ";
       $stmt->execute();
-      echo "executed";
       if($row = $stmt->fetch())
         return True;
       return False;
@@ -212,19 +207,14 @@ SQL;
    */
   public function PlayerMailExist(string $mail){
     try{
-      echo "bonjour player mail exist";
     $sql = <<<SQL
       SELECT id_player
       FROM PLAYER
       WHERE mail = :mail;
 SQL;
-      echo "pgrase sql";
       $stmt = $this->bd->prepare($sql);
-      echo "prepare";
       $stmt->bindValue(':mail', $mail, \PDO::PARAM_STR);
-      echo "bind Value";
       $stmt->execute();
-      echo "executé";
       if($row = $stmt->fetch())
         return True;
       return False;
@@ -238,25 +228,35 @@ SQL;
    *  Return the password of the player wiche have the mail 'mail', False if there is none
    */
   public function findPasswordByMail(string $mail){
-    $sql = <<<SQL
+    try{
+      $sql = <<<SQL
       SELECT password
       FROM PLAYER
       WHERE mail = :mail;
 SQL;
-    $stmt = $this->bd->prepare($sql);
-    $stmt->bindValue(':mail', $mail, \PDO::PARAM_STR);
+      $stmt = $this->bd->prepare($sql);
+      $stmt->bindValue(':mail', $mail, \PDO::PARAM_STR);
 
-    $stmt->execute();
+      $stmt->execute();
 
-    if($row = $stmt->fetch())
-      return $row;
-    return False;
+      if($row = $stmt->fetch())
+        return $row;
+      return False;
+    } catch(PDOException $e){
+      die('Echec FindPasswordByMail, erreur n°' . $e->getCode() . ':' . $e->getMessage());
+    }
+    
   }
 
   /*
    *  Return the password of the player wiche have the pseudo 'pseudo', False if there is none
    */
   public function findPasswordByPseudo(string $pseudo){
+    try{
+
+    } catch(PDOException $e){
+      die('Echec FindPasswordByMail, erreur n°' . $e->getCode() . ':' . $e->getMessage());
+    }
     $sql = <<<SQL
       SELECT password
       FROM PLAYER
