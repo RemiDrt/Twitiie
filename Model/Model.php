@@ -250,6 +250,36 @@ class Model {
     $stmt->execute();
     return $stmt->fetchAll();
   }
+
+  /*
+   *
+   */
+  function findTop10Mon(){
+    $sql = <<<SQL
+      SELECT pseudo, score
+      FROM PLAYER INNER JOIN SCORE ON PLAYER.id_score_mon = SCORE.id_score
+      ORDER BY score DESC
+      FETCH FIRST 10 ROWS ONLY;
+    SQL;
+    $stmt = $this->bd->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll();
+  }
+
+  /*
+   *
+   */
+  function findTop10Week(){
+    $sql = <<<SQL
+      SELECT pseudo, score
+      FROM PLAYER INNER JOIN SCORE ON PLAYER.id_score_week = SCORE.id_score
+      ORDER BY score DESC
+      FETCH FIRST 10 ROWS ONLY;
+    SQL;
+    $stmt = $this->bd->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll();
+  }
 }
 
 ?>
