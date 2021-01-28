@@ -1,9 +1,10 @@
 <?php
-require_once "Model/Model.php"; //Inclusion du modèle
-require_once "Model/Player.php"; // a voir dans le futur si on en a vrmt besoin ici
-require_once "Controller/Controller.php"; //Inclusion de la classe Controller
 
-$controllers = ["Connexion", "Home", "InfosJoueurs", "Insciption", "Jeux"];
+require "Model/Model.php"; // a voir dans le futur si on en a vrmt besoin ici
+require "Model/Player.php"; // a voir dans le futur si on en a vrmt besoin ici
+require "Controller/Controller.php"; //Inclusion de la classe Controller
+
+$controllers = ["Connexion", "Home", "InfosJoueurs", "Inscription", "Jeux"];
 $controller_default = "Connexion";
 
 //On teste si le paramètre controller existe et correspond à un controlleur de la liste $controllers
@@ -12,7 +13,7 @@ if (isset($_GET['controller']) and in_array($_GET['controller'], $controllers)) 
 } else {
     $nom_controller = $controller_default;
 }
-
+var_dump($nom_controller);
 //on determine le nom de l aclasse du contrôleur
 $nom_classe = 'Controller'.$nom_controller;
 

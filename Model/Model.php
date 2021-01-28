@@ -4,7 +4,7 @@ class Model {
   /*
    * Attribut contenant l'instance PDO
    */
-  private $bd;
+  public $bd;
 
   /*
    * Attribut statique qui contiendra l'unique instance de Model
@@ -15,13 +15,19 @@ class Model {
    * Constructeur : effectue la connexion à la base de données
    */
   private function __construct(){
+
     try {
+
       $this->bd = new PDO('pgsql:dbname=coinflip_guillaume_descroix;host=pgsql', 'tpphp', 'tpphp');
       $this->bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       $this->bd->query("SET names 'utf-8'");
+
     } catch(PDOException $e){
+
       die('Echec connexion, erreur n°' . $e->getCode() . ':' . $e->getMessage());
     }
+
+
   }
 
   /*
@@ -41,7 +47,7 @@ class Model {
   /*
    *
    */
-  public static function createPlayer(Player $player) {
+  public  function createPlayer(Player $player) {
     for ($i = 0; $i < 3; $i++) {
       //Création patterne
       $sql = <<<SQL
@@ -75,7 +81,7 @@ class Model {
   /*
    *
    */
-  public static function updateScorePlayerById(int $id, int $score, string $pattern){
+  public  function updateScorePlayerById(int $id, int $score, string $pattern){
     $sql = <<<SQL
       SELECT id_score, score, id_pattern
       FROM PLAYER INNER JOIN SCORE ON PLAYER.id_score_tot = SCORE.id_score
@@ -167,7 +173,7 @@ class Model {
   /*
    *
    */
-  public static function PlayerPseudoExist(string $pseudo){
+  public  function PlayerPseudoExist(string $pseudo){
     $sql = <<<SQL
       SELECT id
       FROM PLAYER
@@ -185,7 +191,7 @@ class Model {
   /*
    *
    */
-  public static function PlayerMailExist(string $mail){
+  public  function PlayerMailExist(string $mail){
     $sql = <<<SQL
       SELECT id
       FROM PLAYER
@@ -203,7 +209,7 @@ class Model {
   /*
    *
    */
-  public static function findPasswordByMail(string $mail){
+  public  function findPasswordByMail(string $mail){
     $sql = <<<SQL
       SELECT password
       FROM PLAYER
@@ -211,17 +217,22 @@ class Model {
     SQL;
     $stmt = $this->bd->prepare($sql);
     $stmt->bindValue(':mail', $mail, \PDO::PARAM_STR);
+
     $stmt->execute();
-    if($row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_FIRST))
-      return $row[0];
-    else
+
+    while($row = $stmt->fetch() ) {
+
+      return $row['pseudo'];
+
+    }
+
       return False;
   }
 
   /*
    *
    */
-  public static function findPasswordByPseudo(string $pseudo){
+  public  function findPasswordByPseudo(string $pseudo){
     $sql = <<<SQL
       SELECT password
       FROM PLAYER
@@ -239,7 +250,7 @@ class Model {
   /*
    *
    */
-  public static function findTop10Tot(){
+  public  function findTop10Tot(){
     $sql = <<<SQL
       SELECT pseudo, score
       FROM PLAYER INNER JOIN SCORE ON PLAYER.id_score_tot = SCORE.id_score
@@ -254,7 +265,7 @@ class Model {
   /*
    *
    */
-  public static function findTop10Mon(){
+  public  function findTop10Mon(){
     $sql = <<<SQL
       SELECT pseudo, score
       FROM PLAYER INNER JOIN SCORE ON PLAYER.id_score_mon = SCORE.id_score
@@ -269,7 +280,7 @@ class Model {
   /*
    *
    */
-  public static function findTop10Week(){
+  public  function findTop10Week(){
     $sql = <<<SQL
       SELECT pseudo, score
       FROM PLAYER INNER JOIN SCORE ON PLAYER.id_score_week = SCORE.id_score
@@ -281,70 +292,37 @@ class Model {
     return $stmt->fetchAll();
   }
 
-  /*
-   *
-   */
-  public static function PlayerMailExist(string $mail){
-    $sql = <<<SQL
-      SELECT id
-      FROM PLAYER
-      WHERE mail = :mail;
-    SQL;
-    $stmt = $this->bd->prepare($sql);
-    $stmt->bindValue(':mail', $mail, \PDO::PARAM_STR);
-    $stmt->execute();
-    if($row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_FIRST))
-      return True;
-    else
-      return False;
-  }
 
   /*
    *
    */
-public static function findPlayerByMail(string $mail){
-    $sql = 
-    <<<SQL
+  public function findPlayerByMail(string $mail){
+    $sql = <<<SQL
       SELECT *
       FROM PLAYER
       WHERE mail = :mail;
     SQL;
+
     $stmt = $this->bd->prepare($sql);
+
+    echo $mail;
     $stmt->bindValue(':mail', $mail, \PDO::PARAM_STR);
+
     $stmt->execute();
-    foreach ($stmt->fetchAll() as $raw) {
-        return $raw;
+
+    while($row = $stmt->fetch()){
+
+      return $row['pseudo'];
     }
-    /*
-    if($row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_FIRST))
-      return $row;
-    else
+
       return False;
-    */
   }
+
 
   /*
    *
    */
-  public static function findScoreByPseudo(string $pseudo){
-    $sql = <<<SQL
-      SELECT *
-      FROM PLAYER
-      WHERE mail = :mail;
-    SQL;
-    $stmt = $this->bd->prepare($sql);
-    $stmt->bindValue(':mail', $mail, \PDO::PARAM_STR);
-    $stmt->execute();
-    if($row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_FIRST))
-      return $row;
-    else
-      return False;
-  }
-
-  /*
-   *
-   */
-  public static function findScoreByPseudo(string $pseudo){
+  public  function findScoreByPseudo(string $pseudo){
     $sql = <<<SQL
       SELECT pseudo, stot.score AS scoreTot, ptot.pattern AS patternTot, smon.score AS scoreMon, pmon.pattern AS patternMon, sweek.score AS scoreWeek, pweek.pattern AS patternWeek
       FROM PLAYER INNER JOIN SCORE stot ON PLAYER.id_score_mon = stot.id_score INNER JOIN SCORE smon ON PLAYER.id_score_mon = smon.id_score INNER JOIN SCORE sweek ON PLAYER.id_score_mon = sweek.id_score

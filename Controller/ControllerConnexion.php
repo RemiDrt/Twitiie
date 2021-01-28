@@ -4,8 +4,9 @@ class ControllerConnexion extends Controller{
 
   public function action_connexion(){
     //$mod = Model::getModel();
-    //$req = $mod->getUserConnexion( htmlspecialchars( $_POST['pseudo'] ), htmlspecialchars( $_POST['password'] ));
-    $data = ['User' => "ok"];
+    //$req = $mod->findPlayerByMail($_POST['mail']);
+
+    $data = ['UserObject' => 'req'];
     $this->render("Connexion", $data);
   }
 
