@@ -1,9 +1,7 @@
 <?php
-echo "OUIIIIIIIIIIIII";
-require_once "Model/Model.php"; // a voir dans le futur si on en a vrmt besoin ici
-echo "OUI !";
-require_once "Model/Player.php"; // a voir dans le futur si on en a vrmt besoin ici
-require_once "Controller/Controller.php"; //Inclusion de la classe Controller
+require "Model/Model.php"; // a voir dans le futur si on en a vrmt besoin ici
+require "Model/Player.php"; // a voir dans le futur si on en a vrmt besoin ici
+require "Controller/Controller.php"; //Inclusion de la classe Controller
 
 $controllers = ["Connexion", "Home", "InfosJoueurs", "Inscription", "Jeux"];
 $controller_default = "Connexion";
@@ -34,3 +32,5 @@ if(file_exists($nom_fichier)) {
     echo " non ";
     exit("Error 404: not found!");
 }
+
+?>

@@ -43,20 +43,20 @@ class Model {
    * Méthodes relatives aux requêtes vers la base de donnée
    */
 
+
   /*
-   *
+   * Add a Player in database
    */
   public function createPlayer(Player $player) {
     for ($i = 0; $i < 3; $i++) {
-      //Création patterne
+      //Add pattern in database
       $sql = <<<SQL
         INSERT INTO PATTERN(pattern)
         VALUES('n');
 SQL;
       $stmt = $this->bd->prepare($sql);
       $stmt->execute();
-
-      //Création score
+      //Add score in database (connected to pattern)
       $sql = <<<SQL
         INSERT INTO SCORE(score,id_pattern)
         VALUES(0, currval('PATTERN_ID'));
@@ -64,8 +64,7 @@ SQL;
       $stmt = $this->bd->prepare($sql);
       $stmt->execute();
     }
-
-    //Création Joueur
+    //Add player (connected to scores)
     $sql = <<<SQL
       INSERT INTO PLAYER(pseudo,mail,password,id_score_tot,id_score_mon,id_score_week)
       VALUES(:pseudo, :mail, :password, currval('SCORE_ID'), currval('SCORE_ID')-1, currval('SCORE_ID')-2);
@@ -78,7 +77,7 @@ SQL;
   }
 
   /*
-   *
+   *  Updates the scores and patterns of the player with the id 'id' if  'score' is higher than or equal to the current scores
    */
   public function updateScorePlayerById(int $id, int $score, string $pattern){
     $sql = <<<SQL
@@ -170,7 +169,7 @@ SQL;
   }
 
   /*
-   *
+   * Return True if there is a player with the pseudo 'pseudo', False otherwise
    */
   public function PlayerPseudoExist(string $pseudo){
     $sql = <<<SQL
@@ -187,7 +186,7 @@ SQL;
   }
 
   /*
-   *
+   * Return True if there is a player with the mail 'mail', False otherwise
    */
   public function PlayerMailExist(string $mail){
     $sql = <<<SQL
@@ -204,7 +203,7 @@ SQL;
   }
 
   /*
-   *
+   *  Return the password of the player wiche have the mail 'mail', False if there is none
    */
   public function findPasswordByMail(string $mail){
     $sql = <<<SQL
@@ -223,7 +222,7 @@ SQL;
   }
 
   /*
-   *
+   *  Return the password of the player wiche have the pseudo 'pseudo', False if there is none
    */
   public function findPasswordByPseudo(string $pseudo){
     $sql = <<<SQL
@@ -240,7 +239,7 @@ SQL;
   }
 
   /*
-   *
+   *  Return the Top10 player of all time
    */
   public function findTop10Tot(){
     $sql = <<<SQL
@@ -255,7 +254,7 @@ SQL;
   }
 
   /*
-   *
+   * Return the Top10 player of the month
    */
   public function findTop10Mon(){
     $sql = <<<SQL
@@ -270,7 +269,7 @@ SQL;
   }
 
   /*
-   *
+   * Return the Top10 player of the week
    */
   public function findTop10Week(){
     $sql = <<<SQL
@@ -286,7 +285,7 @@ SQL;
 
 
   /*
-   *
+   * Returns all information about the player who has the mail 'mail'
    */
   public function findPlayerByMail(string $mail){
     $sql = <<<SQL
@@ -294,25 +293,17 @@ SQL;
       FROM PLAYER
       WHERE mail = :mail;
 SQL;
-
     $stmt = $this->bd->prepare($sql);
-
-    echo $mail;
     $stmt->bindValue(':mail', $mail, \PDO::PARAM_STR);
-
     $stmt->execute();
-
-    while($row = $stmt->fetch()){
-
+    if($row = $stmt->fetch())
       return $row;
-    }
-
-      return False;
+    return False;
   }
 
 
   /*
-   *
+   *  Returns all the scores and patterns of the player with the pseudo 'pseudo'
    */
   public function findScoreByPseudo(string $pseudo){
     $sql = <<<SQL
@@ -328,5 +319,35 @@ SQL;
       return $row;
     else
       return False;
+  }
+
+  /*
+   *  Update the password of the player 'pseudo'
+   */
+  public function modifyPasswordByPseudo(string $pseudo, string $password){
+    $sql = <<<SQL
+      UPDATE PLAYER
+      SET password = :password
+      WHERE pseudo = :pseudo;
+SQL;
+    $stmt = $this->bd->prepare($sql);
+    $stmt->bindValue(':pseudo', $pseudo, \PDO::PARAM_STR);
+    $stmt->bindValue(':password', $password, \PDO::PARAM_STR);
+    $stmt->execute();
+  }
+
+  /*
+   *  Update the mail of the player 'pseudo'
+   */
+  public function modifyMailByPseudo(string $pseudo, string $mail){
+    $sql = <<<SQL
+      UPDATE PLAYER
+      SET mail = :mail
+      WHERE pseudo = :pseudo;
+SQL;
+    $stmt = $this->bd->prepare($sql);
+    $stmt->bindValue(':pseudo', $pseudo, \PDO::PARAM_STR);
+    $stmt->bindValue(':mail', $mail, \PDO::PARAM_STR);
+    $stmt->execute();
   }
 }

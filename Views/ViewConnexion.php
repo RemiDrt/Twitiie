@@ -1,6 +1,7 @@
 <?php require "Header.php"; ?>
 
 <div id="container">
+    <?php if(isset($e_message)){echo '<h1>'.$e_message.'</h1>';} ?>
    	<div id="formulaire">
         <form action="?controller=Connexion&action=connexion" method="post">
                    
@@ -17,5 +18,5 @@
     </div>
 
 </div>
-<?php var_dump($UserObject); ?>
+
 <?php require "Footer.php"; ?>

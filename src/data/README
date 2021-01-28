@@ -1,0 +1,12 @@
+
+/!\ WARNING /!\
+
+You have to run the scripts in this order (due to Foreign key):
+  - pattern.sql
+  - score.sql
+  - player.sql
+
+If you want to drop table, you have to drop them in this order (for the same reason)
+  - TABLE player
+  - TABLE score
+  - TABLE pattern
