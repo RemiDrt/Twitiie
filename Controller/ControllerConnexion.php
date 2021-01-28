@@ -12,9 +12,12 @@ class ControllerConnexion extends Controller{
     if( $req != false AND isset($_POST['mail']) ){
 
 
-		$passwordEncrypted = password_hash($_POST['password'], PASSWORD_DEFAULT);
+		$passwordEncrypted = password_hash(htmlspecialchars($_POST['password']), PASSWORD_DEFAULT);
+		echo $passwordEncrypted;
+		var_dump($req);
+		echo $req['password'];
 		  // Si le mot de passe encrypté correspond au mot de passe encrypté de la bdd
-    	if ( $passwordEncrypted == $req['password']  ) {
+    	if ( password_verify(htmlspecialchars($_POST['password']), $req['password'] ) ) {
 
     		session_start();
     		$_SESSION['userObject'] = $req;
