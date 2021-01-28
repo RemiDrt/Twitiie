@@ -174,7 +174,7 @@ class Model {
       WHERE pseudo = :pseudo;
     SQL;
     $stmt = $this->bd->prepare($sql);
-    $stmt->bindValue(':pseudo', $pseudo, \PDO::PARAM_INT);
+    $stmt->bindValue(':pseudo', $pseudo, \PDO::PARAM_STR);
     $stmt->execute();
     if($row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_FIRST))
       return True;
@@ -192,7 +192,7 @@ class Model {
       WHERE mail = :mail;
     SQL;
     $stmt = $this->bd->prepare($sql);
-    $stmt->bindValue(':mail', $mail, \PDO::PARAM_INT);
+    $stmt->bindValue(':mail', $mail, \PDO::PARAM_STR);
     $stmt->execute();
     if($row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_FIRST))
       return True;
@@ -203,36 +203,53 @@ class Model {
   /*
    *
    */
-  function PlayerMailExist(string $mail){
-    $sql = <<<SQL
-      SELECT id
-      FROM PLAYER
-      WHERE mail = :mail;
-    SQL;
-    $stmt = $this->bd->prepare($sql);
-    $stmt->bindValue(':mail', $mail, \PDO::PARAM_INT);
-    $stmt->execute();
-    if($row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_FIRST))
-      return True;
-    else
-      return False;
-  }
-
   function findPasswordByMail(string $mail){
     $sql = <<<SQL
-      SELECT id
+      SELECT password
       FROM PLAYER
       WHERE mail = :mail;
     SQL;
     $stmt = $this->bd->prepare($sql);
-    $stmt->bindValue(':mail', $mail, \PDO::PARAM_INT);
+    $stmt->bindValue(':mail', $mail, \PDO::PARAM_STR);
     $stmt->execute();
     if($row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_FIRST))
-      return True;
+      return $row[0];
     else
       return False;
   }
 
+  /*
+   *
+   */
+  function findPasswordByPseudo(string $pseudo){
+    $sql = <<<SQL
+      SELECT password
+      FROM PLAYER
+      WHERE pseudo = :pseudo;
+    SQL;
+    $stmt = $this->bd->prepare($sql);
+    $stmt->bindValue(':pseudo', $pseudo, \PDO::PARAM_STR);
+    $stmt->execute();
+    if($row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_FIRST))
+      return $row[0];
+    else
+      return False;
+  }
+
+  /*
+   *
+   */
+  function findTop10Tot(){
+    $sql = <<<SQL
+      SELECT pseudo, score
+      FROM PLAYER INNER JOIN SCORE ON PLAYER.id_score_tot = SCORE.id_score
+      ORDER BY score DESC
+      FETCH FIRST 10 ROWS ONLY;
+    SQL;
+    $stmt = $this->bd->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll();
+  }
 }
 
 ?>
