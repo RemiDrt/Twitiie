@@ -6,7 +6,7 @@ You have to run the scripts in this order (due to Foreign key):
   - score.sql
   - player.sql
 
-If you want to drop table, you have to drop them in this order (for the same raison)
+If you want to drop table, you have to drop them in this order (for the same reason)
   - TABLE player
   - TABLE score
   - TABLE pattern
