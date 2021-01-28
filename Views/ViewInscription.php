@@ -1,4 +1,4 @@
-<?php require "Header.php"; ?>
+<?php require_once "Header.php"; ?>
 <?php if(isset(data["message_err"])): echo '<p>'.data["message_err"].'</p>';?>
 
 <div id="container">
@@ -28,4 +28,4 @@
 
 </div>
 
-<?php require "Footer.php"; ?>
+<?php require_once "Footer.php"; ?>
