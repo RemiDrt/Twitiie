@@ -41,7 +41,7 @@ class Model {
   /*
    *
    */
-  function createPlayer(Player $player) {
+  public static function createPlayer(Player $player) {
     for ($i = 0; $i < 3; $i++) {
       //Création patterne
       $sql = <<<SQL
@@ -75,7 +75,7 @@ class Model {
   /*
    *
    */
-  function updateScorePlayerById(int $id, int $score, string $pattern){
+  public static function updateScorePlayerById(int $id, int $score, string $pattern){
     $sql = <<<SQL
       SELECT id_score, score, id_pattern
       FROM PLAYER INNER JOIN SCORE ON PLAYER.id_score_tot = SCORE.id_score
@@ -167,7 +167,7 @@ class Model {
   /*
    *
    */
-  function PlayerPseudoExist(string $pseudo){
+  public static function PlayerPseudoExist(string $pseudo){
     $sql = <<<SQL
       SELECT id
       FROM PLAYER
@@ -185,7 +185,7 @@ class Model {
   /*
    *
    */
-  function PlayerMailExist(string $mail){
+  public static function PlayerMailExist(string $mail){
     $sql = <<<SQL
       SELECT id
       FROM PLAYER
@@ -203,7 +203,7 @@ class Model {
   /*
    *
    */
-  function findPasswordByMail(string $mail){
+  public static function findPasswordByMail(string $mail){
     $sql = <<<SQL
       SELECT password
       FROM PLAYER
@@ -221,7 +221,7 @@ class Model {
   /*
    *
    */
-  function findPasswordByPseudo(string $pseudo){
+  public static function findPasswordByPseudo(string $pseudo){
     $sql = <<<SQL
       SELECT password
       FROM PLAYER
@@ -239,7 +239,7 @@ class Model {
   /*
    *
    */
-  function findTop10Tot(){
+  public static function findTop10Tot(){
     $sql = <<<SQL
       SELECT pseudo, score
       FROM PLAYER INNER JOIN SCORE ON PLAYER.id_score_tot = SCORE.id_score
@@ -254,7 +254,7 @@ class Model {
   /*
    *
    */
-  function findTop10Mon(){
+  public static function findTop10Mon(){
     $sql = <<<SQL
       SELECT pseudo, score
       FROM PLAYER INNER JOIN SCORE ON PLAYER.id_score_mon = SCORE.id_score
@@ -269,7 +269,7 @@ class Model {
   /*
    *
    */
-  function findTop10Week(){
+  public static function findTop10Week(){
     $sql = <<<SQL
       SELECT pseudo, score
       FROM PLAYER INNER JOIN SCORE ON PLAYER.id_score_week = SCORE.id_score
@@ -284,7 +284,7 @@ class Model {
   /*
    *
    */
-  function PlayerMailExist(string $mail){
+  public static function PlayerMailExist(string $mail){
     $sql = <<<SQL
       SELECT id
       FROM PLAYER
@@ -302,7 +302,7 @@ class Model {
   /*
    *
    */
-  function findPlayerByMail(string $mail){
+  public static function findPlayerByMail(string $mail){
     $sql = <<<SQL
       SELECT *
       FROM PLAYER
@@ -320,7 +320,7 @@ class Model {
   /*
    *
    */
-  function findScoreByPseudo(string $pseudo){
+  public static function findScoreByPseudo(string $pseudo){
     $sql = <<<SQL
       SELECT *
       FROM PLAYER
@@ -338,10 +338,11 @@ class Model {
   /*
    *
    */
-  function findScoreByPseudo(string $pseudo){
+  public static function findScoreByPseudo(string $pseudo){
     $sql = <<<SQL
-      SELECT pseudo, tot.score AS scoreTot, mon.score AS scoreMon, week.score AS scoreWeek
-      FROM PLAYER INNER JOIN SCORE tot ON PLAYER.id_score_mon = tot.id_score INNER JOIN SCORE mon ON PLAYER.id_score_mon = mon.id_score INNER JOIN SCORE week ON PLAYER.id_score_mon = week.id_score
+      SELECT pseudo, stot.score AS scoreTot, ptot.pattern AS patternTot, smon.score AS scoreMon, pmon.pattern AS patternMon, sweek.score AS scoreWeek, pweek.pattern AS patternWeek
+      FROM PLAYER INNER JOIN SCORE stot ON PLAYER.id_score_mon = stot.id_score INNER JOIN SCORE smon ON PLAYER.id_score_mon = smon.id_score INNER JOIN SCORE sweek ON PLAYER.id_score_mon = sweek.id_score
+      INNER JOIN PATTERN ptot ON stot.id_pattern = ptot.id_pattern INNER JOIN PATTERN pmon ON smon.id_pattern = pmon.id_pattern INNER JOIN PATTERN pweek ON sweek.id_pattern = pweek.id_pattern
       WHERE pseudo = :pseudo;
     SQL;
     $stmt = $this->bd->prepare($sql);
