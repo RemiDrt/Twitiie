@@ -14,7 +14,7 @@ class Controller_connexion extends Controller{
 	* Action par défaut du contrôleur (à définir dans les classes filles)
 	*/
 	public function action_default(){
-		$this->action_home();
+		$this->action_connexion();
 	}
 
 
