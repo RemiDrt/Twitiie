@@ -280,6 +280,42 @@ class Model {
     $stmt->execute();
     return $stmt->fetchAll();
   }
+
+  /*
+   *
+   */
+  function PlayerMailExist(string $mail){
+    $sql = <<<SQL
+      SELECT id
+      FROM PLAYER
+      WHERE mail = :mail;
+    SQL;
+    $stmt = $this->bd->prepare($sql);
+    $stmt->bindValue(':mail', $mail, \PDO::PARAM_STR);
+    $stmt->execute();
+    if($row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_FIRST))
+      return True;
+    else
+      return False;
+  }
+
+  /*
+   *
+   */
+  function findPlayerByMail(string $mail){
+    $sql = <<<SQL
+      SELECT *
+      FROM PLAYER
+      WHERE mail = :mail;
+    SQL;
+    $stmt = $this->bd->prepare($sql);
+    $stmt->bindValue(':mail', $mail, \PDO::PARAM_STR);
+    $stmt->execute();
+    if($row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_FIRST))
+      return $row;
+    else
+      return False;
+  }
 }
 
 ?>
