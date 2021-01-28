@@ -4,6 +4,7 @@ class ControllerInscription extends Controller {
     public function action_inscription(){
         $data = [];
         echo "bonjour";
+        echo "aurevoir";
         $this->render("Inscription", $data);
     }
 
@@ -51,7 +52,7 @@ class ControllerInscription extends Controller {
         }
         echo "avant insert ";
         $mdp_crypt = password_hash($pass, PASSWORD_DEFAULT);
-        $player = new Player($pseudo, $mail, $mdp_crypt);
+        $player = new Player($usr, $mail, $mdp_crypt);
         $req = $mod->createPlayer($player);
         $data["message_success"] = "Joueur ajouter avec succès";
         $this->render("Connexion", $data);
