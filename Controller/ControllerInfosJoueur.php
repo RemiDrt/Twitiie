@@ -5,8 +5,13 @@ class ControllerInfosJoueur extends Controller {
         /**
          * Récuperer les infos d'un joueur (on a son pseudo dans le post)
          */
-        $this->render("InfosJoueur", findScore(htmlspecialchars($_POST['username'])));
-
+        echo "coucou action_infosJoueur";
+        var_dump($_POST);
+        $pseudo = htmlspecialchars($_POST["username"]);
+        echo "apres html special schars";
+        $data = $this->findScore($pseudo);
+        echo "apres fct find score";
+        $this->render("InfosJoueur", $data);
     }
 
     public function action_default(){
@@ -18,11 +23,11 @@ class ControllerInfosJoueur extends Controller {
       $result = $mod->findScoreByPseudo($pseudoUser);
       $data['Pseudo'] = $result['pseudo'];
       $data['PlayerScoreWeek'] = $result['scoreweek'];
-      $data['PlayerPatternWeek'] = $result['paternweek'];
+      $data['PlayerPatternWeek'] = $result['patternweek'];
       $data['PlayerScoreMon'] = $result['scoremon'];
-      $data['PlayerPatternMon'] = $result['paternmon'];
+      $data['PlayerPatternMon'] = $result['patternmon'];
       $data['PlayerScoreTot'] = $result['scoretot'];
-      $data['PlayerPatternTot'] = $result['paterntot'];
+      $data['PlayerPatternTot'] = $result['patterntot'];
       return $data;
     }
 }
