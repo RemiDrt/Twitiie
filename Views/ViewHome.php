@@ -24,13 +24,15 @@
                 Stop
             </button>
 
+
+
             </div>
 
 
 
 
 
-            <table>
+            <table class="score-table">
                 <tr><th>TOP 10 PLAYER</th></tr>
                 <tr>
                     <th>Player</th>
@@ -45,7 +47,7 @@
 
             </table>
 
-            <table>
+            <table class="score-table">
                 <tr><th>TOP 10 PLAYER OF THE MONTH</th></tr>
                 <tr>
                     <th>Player</th>
@@ -60,7 +62,7 @@
 
             </table>
 
-            <table>
+            <table class="score-table">
                 <tr><th>TOP 10 PLAYER OF THE WEEK</th></tr>
                 <tr>
                     <th>Player</th>
@@ -74,45 +76,82 @@
                 <?php endforeach ?>
             </table>
 
-            <table>
-                <tr><th><?=$_SESSION["userObject"]["pseudo"]?></th></tr>
-                <tr>
-                    <th>Score</th>
-                    <th>Pattern</th>
-                </tr>
-                <tr>
-                    <th>Ever</th>
-                    <td><?=$data["Player"]["PlayerScoreTot"]?></td>
-                    <td><?=$data["Player"]["PlayerPatternTot"]?></td>
-                </tr>
-                <tr>
-                    <th>Month</th>
-                    <td><?=$data["Player"]["PlayerScoreMon"]?></td>
-                    <td><?=$data["Player"]["PlayerPatternMon"]?></td>
-                </tr>
-                <tr>
-                    <th>Week</th>
-                    <td><?=$data["Player"]["PlayerScoreWeek"]?></td>
-                    <td><?=$data["Player"]["PlayerPatternWeek"]?></td>
-                </tr>
-            </table>
+
+            <div id="right-infos">
+
+                <table id="infos-joueur">
+                    <tr><th><?=$_SESSION["userObject"]["pseudo"]?></th></tr>
+                    <tr>
+                        <th>Score</th>
+                        <th>Pattern</th>
+                    </tr>
+                    <tr>
+                        <th>Ever</th>
+                        <td><?=$data["Player"]["PlayerScoreTot"]?></td>
+                        <td><?=$data["Player"]["PlayerPatternTot"]?></td>
+                    </tr>
+                    <tr>
+                        <th>Month</th>
+                        <td><?=$data["Player"]["PlayerScoreMon"]?></td>
+                        <td><?=$data["Player"]["PlayerPatternMon"]?></td>
+                    </tr>
+                    <tr>
+                        <th>Week</th>
+                        <td><?=$data["Player"]["PlayerScoreWeek"]?></td>
+                        <td><?=$data["Player"]["PlayerPatternWeek"]?></td>
+                    </tr>
+                </table>
+
+                </div>
+
+                 <div id="choix-piece">
+                    <div>
+                      <input type="radio" id="colombe" name="piece" checked>
+                      <img src="src/img/2euro-colombe.jpg">
+                    </div>
+                    <div>
+                      <input type="radio" id="ENSIIE" name="piece">
+                      <img src="src/img/2euro-ENSIIE.PNG">
+                    </div>
+                    <div>
+                      <input type="radio" id="Europe" name="piece">
+                      <img src="src/img/2euro-Europe.jpg">
+                    </div>
+                    <div>
+                      <input type="radio" id="France" name="piece">
+                      <img src="src/img/2euro-France.jpg">
+                    </div>
+                    <div>
+                      <input type="radio" id="Liberte" name="piece">
+                      <img src="src/img/2euro-Liberté.jpg">
+                    </div>
+                    <div>
+                      <input type="radio" id="PDC" name="piece">
+                      <img src="src/img/2euro-Pierre-De-Coubertin.jpg">
+                    </div>
+                    <div>
+                      <input type="radio" id="RubanRose" name="piece">
+                      <img src="src/img/2euro-Ruban-Rose.jpg">
+                    </div>
+                    <div>
+                      <input type="radio" id="stonks" name="piece">
+                      <img src="src/img/2euro-Stonks.PNG">
+                    </div>
+                </div>
 
 
 
 
+                <div id="formulaire-infosJoueurs">
+                    <form action="?controller=InfosJoueur&action=infosJoueur" method="post">
+                        <label>Rechercher un joueur :</label>
+                        <label><b>Nom d'utilisateur</b></label>
+                        <input type="text" placeholder="Entrez un pseudo" name="username" required>
 
+                        <input type="submit" id='submit' value='Rechercher' >
 
-
-            <div id="formulaire-infosJoueurs">
-                <form action="?controller=InfosJoueur&action=infosJoueur" method="post">
-                    <label>Rechercher un joueur :</label>
-                    <label><b>Nom d'utilisateur</b></label>
-                    <input type="text" placeholder="Entrez un pseudo" name="username" required>
-
-                    <input type="submit" id='submit' value='Rechercher' >
-
-                </form>
-            </div>
+                    </form>
+                </div>
 
 
         </main>

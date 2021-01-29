@@ -101,6 +101,71 @@ function sendToPhp() {
 }
 
 
+document.addEventListener('DOMContentLoaded', function(event) {
 
 
-document.addEventListener('DOMContentLoaded', function(event) {})
+
+ 	document.getElementById("colombe").onclick = function func() {
+
+ 	document.getElementsByClassName('back')[0].style.backgroundImage = "url(src/img/2euro-colombe.jpg)";
+
+
+ }
+
+  document.getElementById("ENSIIE").onclick = function func() {
+
+ 	document.getElementsByClassName('back')[0].style.backgroundImage = "url(src/img/2euro-ENSIIE.PNG)";
+
+
+ }
+
+
+ document.getElementById("Europe").onclick = function func() {
+
+ 	document.getElementsByClassName('back')[0].style.backgroundImage = "url(src/img/2euro-Europe.jpg)";
+
+
+ 	
+ }
+
+
+ document.getElementById("France").onclick = function func() {
+
+ 	document.getElementsByClassName('back')[0].style.backgroundImage = "url(src/img/2euro-France.jpg)";
+
+
+ 	
+ }
+
+
+ document.getElementById("Liberte").onclick = function func() {
+
+ 	document.getElementsByClassName('back')[0].style.backgroundImage = "url(src/img/2euro-Liberté.jpg)";
+
+
+ 	
+ }
+
+
+  document.getElementById("RubanRose").onclick = function func() {
+
+ 	document.getElementsByClassName('back')[0].style.backgroundImage = "url(src/img/2euro-Ruban-Rose.jpg)";
+
+
+ 	
+ }
+
+
+  document.getElementById("stonks").onclick = function func() {
+
+ 	document.getElementsByClassName('back')[0].style.backgroundImage = "url(src/img/2euro-Stonks.PNG)";
+
+ 	
+ }
+
+
+
+
+
+});
+
