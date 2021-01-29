@@ -97,7 +97,7 @@ SQL;
     $stmt->bindValue(':id', $id, \PDO::PARAM_INT);
     $stmt->execute();
     $row = $stmt->fetch();
-    if($row[1] >= $score){
+    if($row[1] <= $score){
       $sql = <<<SQL
         UPDATE SCORE
         SET score = :score
@@ -126,7 +126,7 @@ SQL;
     $stmt->bindValue(':id', $id, \PDO::PARAM_INT);
     $stmt->execute();
     $row = $stmt->fetch();
-    if($row[1] >= $score){
+    if($row[1] <= $score){
       $sql = <<<SQL
         UPDATE SCORE
         SET score = :score
@@ -155,7 +155,7 @@ SQL;
     $stmt->bindValue(':id', $id, \PDO::PARAM_INT);
     $stmt->execute();
     $row = $stmt->fetch();
-    if($row[1] >= $score){
+    if($row[1] <= $score){
       $sql = <<<SQL
         UPDATE SCORE
         SET score = :score
