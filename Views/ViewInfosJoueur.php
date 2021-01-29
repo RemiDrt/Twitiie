@@ -1,5 +1,5 @@
 <?php require "Header.php"; ?>
-<table>
+<table class="score-table">
 <tr><th><?=$data["Pseudo"]?></th></tr>
 <tr>
     <th>Score</th>

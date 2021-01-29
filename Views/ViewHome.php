@@ -139,7 +139,7 @@
 
 
                 <div id="formulaire-infosJoueurs">
-                    <form action="?controller=InfosJoueur&action=infosJoueur" method="post">
+                    <form action="?controller=Global&action=infosJoueur" method="post">
                         <label>Rechercher un joueur :</label>
                         <label><b>Nom d'utilisateur</b></label>
                         <input type="text" placeholder="Entrez un pseudo" name="username" required>
