@@ -27,7 +27,7 @@ function coinFlip(element){
         array = [];
     }
     myMusic.play();
-    
+
     document.getElementById("Score").style.visibility = 'hidden';
 
     document.getElementById("coin").removeAttribute("class");
@@ -62,7 +62,7 @@ function getSpin(res) {
     var face = ['animation900','animation1260','animation1620','animation1980'];
     var pile = ['animation1080','animation1440','animation1800','animation2160'];
 
-    if (res == 0 ) {
+    if (res == 1 ) {
 
         var spin = face[Math.floor(Math.random()*face.length)];
     }else{
