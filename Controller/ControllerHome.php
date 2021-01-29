@@ -47,12 +47,12 @@ class ControllerHome extends Controller {
       $mod = Model::getModel();
       $pseudoUser = $_SESSION["userObject"]['pseudo'];
       $result = $mod->findScoreByPseudo($pseudoUser);
-      $data['PlayerScoreWeek'] = $value['scoreweek'];
-      $data['PlayerPatternWeek'] = $value['paternweek'];
-      $data['PlayerScoreMon'] = $value['scoremon'];
-      $data['PlayerPatternMon'] = $value['paternmon'];
-      $data['PlayerScoreTot'] = $value['scoretot'];
-      $data['PlayerPatternTot'] = $value['paterntot'];
+      $data['PlayerScoreWeek'] = $result['scoreweek'];
+      $data['PlayerPatternWeek'] = $result['paternweek'];
+      $data['PlayerScoreMon'] = $result['scoremon'];
+      $data['PlayerPatternMon'] = $result['paternmon'];
+      $data['PlayerScoreTot'] = $result['scoretot'];
+      $data['PlayerPatternTot'] = $result['paterntot'];
       return $data;
     }
 }
