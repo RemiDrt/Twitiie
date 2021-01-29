@@ -341,10 +341,10 @@ SQL;
    */
   public function findScoreByPseudo(string $pseudo){
     $sql = <<<SQL
-      SELECT pseudo, stot.score AS scoreTot, ptot.pattern AS patternTot, smon.score AS scoreMon, pmon.pattern AS patternMon, sweek.score AS scoreWeek, pweek.pattern AS patternWeek
-      FROM PLAYER INNER JOIN SCORE stot ON PLAYER.id_score_mon = stot.id_score INNER JOIN SCORE smon ON PLAYER.id_score_mon = smon.id_score INNER JOIN SCORE sweek ON PLAYER.id_score_mon = sweek.id_score
-      INNER JOIN PATTERN ptot ON stot.id_pattern = ptot.id_pattern INNER JOIN PATTERN pmon ON smon.id_pattern = pmon.id_pattern INNER JOIN PATTERN pweek ON sweek.id_pattern = pweek.id_pattern
-      WHERE pseudo = :pseudo;
+    SELECT pseudo, stot.score AS scoreTot, ptot.pattern AS patternTot, smon.score AS scoreMon, pmon.pattern AS patternMon, sweek.score AS scoreWeek, pweek.pattern AS patternWeek
+    FROM PLAYER INNER JOIN SCORE stot ON PLAYER.id_score_tot = stot.id_score INNER JOIN SCORE smon ON PLAYER.id_score_mon = smon.id_score INNER JOIN SCORE sweek ON PLAYER.id_score_week = sweek.id_score
+    INNER JOIN PATTERN ptot ON stot.id_pattern = ptot.id_pattern INNER JOIN PATTERN pmon ON smon.id_pattern = pmon.id_pattern INNER JOIN PATTERN pweek ON sweek.id_pattern = pweek.id_pattern
+    WHERE pseudo = :pseudo;
 SQL;
     $stmt = $this->bd->prepare($sql);
     $stmt->bindValue(':pseudo', $pseudo, \PDO::PARAM_STR);
