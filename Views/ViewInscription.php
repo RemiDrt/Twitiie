@@ -6,7 +6,7 @@
 <div id="container">
 
     <div id="formulaire-inscription">
-        <form action="?controller=Inscription&action=formInscription" method="post">
+        <form action="?controller=Global&action=formInscription" method="post">
 
             <label><b>Nom d'utilisateur</b></label>
             <input type="text" placeholder="Entrez un pseudo" name="username" required>
@@ -24,7 +24,7 @@
 
         </form>
 
-    <a href="?controller=Connexion&action=connexion"> Retour </a>
+    <a href="?controller=Global&action=connexion"> Retour </a>
 
     </div>
 

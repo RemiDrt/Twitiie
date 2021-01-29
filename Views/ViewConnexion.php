@@ -3,7 +3,7 @@
 <div id="container">
     <?php if(isset($e_message)){echo '<h1>'.$e_message.'</h1>';} ?>
    	<div id="formulaire">
-        <form action="?controller=Connexion&action=connexion" method="post">
+        <form action="?controller=Global&action=connexion" method="post">
                    
                     <label><b>E-Mail</b></label>
                     <input type="text" placeholder="Entrez votre e-mail" name="mail" required>
@@ -13,7 +13,7 @@
                     <input type="submit" id='submit' value='Connexion' >
         </form>
 
-        <a href="?controller=Inscription&action=inscription"> Inscription </a>
+        <a href="?controller=Global&action=inscription"> Inscription </a>
 
     </div>
 

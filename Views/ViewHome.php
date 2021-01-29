@@ -1,8 +1,4 @@
-<?php require "Header.php"; 
-session_start();
-var_dump($_SESSION);
-var_dump($data);
-?>
+<?php require "Header.php"; ?>
         <main>
 
             <div class="game">

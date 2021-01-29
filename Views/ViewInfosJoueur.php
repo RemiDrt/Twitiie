@@ -1,7 +1,4 @@
 <?php require "Header.php"; ?>
-<?php 
-var_dump($data); 
-?>
 <table>
 <tr><th><?=$data["Pseudo"]?></th></tr>
 <tr>
@@ -26,7 +23,7 @@ var_dump($data);
 </table>
 
 
-<a href="?controller=Home&action=home">Retour home</a>
+<a href="?controller=Global&action=home">Retour home</a>
 
 
 
