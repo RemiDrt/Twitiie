@@ -38,8 +38,5 @@ function sendToPhp() {
     };
 
     var data = {pattern: array, score: scoreNb};
-    alert()
-    alert(JSON.stringify(data));
     xhttp.send(JSON.stringify(data));
-
 }
