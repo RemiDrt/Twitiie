@@ -105,9 +105,9 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
 
 
- 	document.getElementById("colombe").onclick = function func() {
+ 	document.getElementById("default").onclick = function func() {
 
- 	document.getElementsByClassName('back')[0].style.backgroundImage = "url(src/img/2euro-colombe.jpg)";
+ 	document.getElementsByClassName('back')[0].style.backgroundImage = "url(src/img/face.jpg)";
 
 
  }

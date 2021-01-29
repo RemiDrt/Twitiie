@@ -106,8 +106,8 @@
 
                  <div id="choix-piece">
                     <div>
-                      <input type="radio" id="colombe" name="piece" checked>
-                      <img src="src/img/2euro-colombe.jpg">
+                      <input type="radio" id="default" name="piece" checked>
+                      <img src="src/img/face.jpg">
                     </div>
                     <div>
                       <input type="radio" id="ENSIIE" name="piece">
@@ -124,10 +124,6 @@
                     <div>
                       <input type="radio" id="Liberte" name="piece">
                       <img src="src/img/2euro-Liberté.jpg">
-                    </div>
-                    <div>
-                      <input type="radio" id="PDC" name="piece">
-                      <img src="src/img/2euro-Pierre-De-Coubertin.jpg">
                     </div>
                     <div>
                       <input type="radio" id="RubanRose" name="piece">
