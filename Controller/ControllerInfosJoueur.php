@@ -4,14 +4,17 @@ class ControllerInfosJoueur extends Controller {
     public function action_infosJoueur(){
         $mod = Model::getModel();
         /**
-         * tester les fonction et mettre tous les resultats dans le tableau $data
+         * Récuperer les infos d'un joueur (on a son pseudo dans le post)
          */
-        $data = [];
+        
+        $pseudo = htmlspecialchars($_POST["username"]);
+        $playerPatt = $mod->findScoreByPseudo($pseudo);
+        $data = ["joueur" => $playerPatt];
         $this->render("InfosJoueur", $data);
 
     }
 
     public function action_default(){
-        $this->action_infosJoueurs();
+        $this->action_infosJoueur();
     }
 }
