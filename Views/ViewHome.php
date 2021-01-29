@@ -131,7 +131,7 @@
                     </div>
                     <div>
                       <input type="radio" id="stonks" name="piece">
-                      <img alt="face piece stonks" src="src/img/2euro-Stonks.PNG" alt="pièce de monnaie">
+                      <img alt="face piece stonks" src="src/img/2euro-Stonks.PNG">
                     </div>
                 </div>
 
