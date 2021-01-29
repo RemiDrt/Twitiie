@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html lang="fr">
-    <head>
-        <meta charset="utf-8"/>
-        <title>Coin Flip</title>
-    </head>
-    <body>
+<?php require "Header.php"; ?>
         <main>
 
             <div class="game">
@@ -18,9 +12,19 @@
                 Stop
             </button>
 
+
+            <div id="formulaire-infosJoueurs">
+                <form action="?controller=InfosJoueur&action=infosJoueur" method="post">
+                    <label>Rechercher un joueur :</label>
+                    <label><b>Nom d'utilisateur</b></label>
+                    <input type="text" placeholder="Entrez un pseudo" name="username" required>
+
+                    <input type="submit" id='submit' value='Rechercher' >
+
+                </form>
+            </div>
+
+
         </main>
            <script src="src/script.js"></script>
-    </body>
-
-
-</html>
+<?php require "Footer.php"; ?>
