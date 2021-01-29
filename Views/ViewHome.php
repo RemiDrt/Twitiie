@@ -116,5 +116,5 @@
 
 
         </main>
-           <script src="src/script.js"></script>
+
 <?php require "Footer.php"; ?>
