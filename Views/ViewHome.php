@@ -107,31 +107,31 @@
                  <div id="choix-piece">
                     <div>
                       <input type="radio" id="default" name="piece" checked>
-                      <img src="src/img/face.jpg">
+                      <img alt="face piece" src="src/img/face.jpg">
                     </div>
                     <div>
                       <input type="radio" id="ENSIIE" name="piece">
-                      <img src="src/img/2euro-ENSIIE.PNG">
+                      <img alt="face piece ensiie" src="src/img/2euro-ENSIIE.PNG">
                     </div>
                     <div>
                       <input type="radio" id="Europe" name="piece">
-                      <img src="src/img/2euro-Europe.jpg">
+                      <img alt="face piece europe" src="src/img/2euro-Europe.jpg">
                     </div>
                     <div>
                       <input type="radio" id="France" name="piece">
-                      <img src="src/img/2euro-France.jpg">
+                      <img alt="face piece france" src="src/img/2euro-France.jpg">
                     </div>
                     <div>
                       <input type="radio" id="Liberte" name="piece">
-                      <img src="src/img/2euro-Liberté.jpg">
+                      <img alt="face piece liberte" src="src/img/2euro-Liberté.jpg">
                     </div>
                     <div>
                       <input type="radio" id="RubanRose" name="piece">
-                      <img src="src/img/2euro-Ruban-Rose.jpg">
+                      <img alt="face piece ruban rose" src="src/img/2euro-Ruban-Rose.jpg">
                     </div>
                     <div>
                       <input type="radio" id="stonks" name="piece">
-                      <img src="src/img/2euro-Stonks.PNG">
+                      <img alt="face piece stonks" src="src/img/2euro-Stonks.PNG" alt="pièce de monnaie">
                     </div>
                 </div>
 
