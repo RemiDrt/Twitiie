@@ -1,16 +1,29 @@
 <?php require "Header.php"; ?>
         <main>
 
-            <div class="game">
-                <button id="0" onclick="coinFlip(this)">Pile</button>
-                <button id="1" onclick="coinFlip(this)">Face</button>
-                <h1 id="Score"></h1>
+
+            <div id="coin-flip-cont">
+                <div id="coin">
+                    <div class="front"></div>
+                    <div class="back"></div>
+                </div>
+
+                <div class="game">
+                    <button id="0" onclick="coinFlip(this)">Pile</button>
+                    <button id="1" onclick="coinFlip(this)">Face</button>
+                    <h1 id="Score"></h1>
                 
-            </div>
+                </div>
 
             <button id="sauvegarde">
                 Stop
             </button>
+
+            </div>
+
+            
+
+
 
             <table>
                 <tr><th>TOP 10 PLAYER</th></tr>
