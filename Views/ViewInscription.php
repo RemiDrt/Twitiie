@@ -18,7 +18,7 @@
             <input type="password" placeholder="Entrez un mot de passe" name="password" required>
 
             <label><b>Vérification mot de passe</b></label>
-            <input type="password" placeholder="Entrez un mot de passe" name="re-password" required></br>
+            <input type="password" placeholder="Entrez un mot de passe" name="re-password" required><br/>
 
             <input type="submit" id='submit' value='Inscription' >
 
