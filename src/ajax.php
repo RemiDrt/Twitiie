@@ -1,5 +1,6 @@
 <?php 
 
+session_start();
 
 require '../Model/Model.php';
 
@@ -15,7 +16,7 @@ $pattern = str_replace("1","f", $pattern);
 
 $mod = Model::getModel();
 
-$mod->updateScorePlayerById( 5, $score, $pattern );
+$mod->updateScorePlayerById($_SESSION['userObject']['id_player'], $score, $pattern );
 
 
 
