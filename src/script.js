@@ -24,20 +24,19 @@ window.onload = function() {
 
         sendToPhp();
         array = [];
-        score.textContent = 0
+        score.textContent = 0;
+        scoreNb = 0;
 
     }
 }
 
 function sendToPhp() {
-  var xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "../test.php", true); 
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "src/ajax.php", true); 
     xhttp.setRequestHeader("Content-Type", "application/json");
     xhttp.onreadystatechange = function() {
     };
 
-    var data = {pattern: array };
+    var data = {pattern: array, score: scoreNb};
     xhttp.send(JSON.stringify(data));
-    alert(array);
-
 }
