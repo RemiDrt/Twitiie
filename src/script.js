@@ -8,27 +8,27 @@ score.textContent = scoreNb;
 function coinFlip(element){
     var score = document.getElementById("Score");
     var res = Math.round(Math.random());
-    var egal = res == element.id; 
+    var egal = res == element.id;
 
     cote = res;
 
     document.getElementById("0").disabled = true;
     document.getElementById("1").disabled = true;
 
-
+    var myMusic;
     if (element.id == res) {
+        myMusic = document.getElementById("music");
         scoreNb = scoreNb + 1
         array.push(res);
     }
     else {
+        myMusic = document.getElementById("music2");
         scoreNb = 0
         array = [];
     }
-
-
-
-
-    document.getElementById("Score").style.visibility = 'hidden'; 
+    myMusic.play();
+    
+    document.getElementById("Score").style.visibility = 'hidden';
 
     document.getElementById("coin").removeAttribute("class");
 
@@ -91,7 +91,7 @@ window.onload = function() {
 
 function sendToPhp() {
     var xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "src/ajax.php", true); 
+    xhttp.open("POST", "src/ajax.php", true);
     xhttp.setRequestHeader("Content-Type", "application/json");
     xhttp.onreadystatechange = function() {
     };
@@ -104,14 +104,3 @@ function sendToPhp() {
 
 
 document.addEventListener('DOMContentLoaded', function(event) {})
-
-
-
-
-
-
-
-
-
-
-

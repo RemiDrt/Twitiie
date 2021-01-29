@@ -12,7 +12,12 @@
                     <button id="0" onclick="coinFlip(this)">Pile</button>
                     <button id="1" onclick="coinFlip(this)">Face</button>
                     <h1 id="Score"></h1>
-                
+                    <audio controls id="music">
+                        <source src="src/music/gagne.mp3" type="audio/mpeg">
+                    </audio>
+                    <audio controls id="music2">
+                        <source src="src/music/perdu.mp3" type="audio/mpeg">
+                    </audio>
                 </div>
 
             <button id="sauvegarde">
@@ -21,7 +26,7 @@
 
             </div>
 
-            
+
 
 
 
