@@ -1,3 +1,3 @@
-      <script src="src/script-piece.js"></script>
+      <script src="src/script.js"></script>
     </body>
 </html>
