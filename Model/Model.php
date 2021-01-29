@@ -103,6 +103,7 @@ SQL;
         SET score = :score
         WHERE id_score = :id;
 SQL;
+      $stmt = $this->bd->prepare($sql);
       $stmt->bindValue(':id', $row[0], \PDO::PARAM_INT);
       $stmt->bindValue(':score', $score, \PDO::PARAM_INT);
       $stmt->execute();
@@ -112,6 +113,7 @@ SQL;
         SET pattern = :pattern
         WHERE id_pattern = :id;
 SQL;
+      $stmt = $this->bd->prepare($sql);
       $stmt->bindValue(':id', $row[2], \PDO::PARAM_INT);
       $stmt->bindValue(':pattern', $pattern, \PDO::PARAM_STR);
       $stmt->execute();
@@ -132,6 +134,7 @@ SQL;
         SET score = :score
         WHERE id_score = :id;
 SQL;
+      $stmt = $this->bd->prepare($sql);
       $stmt->bindValue(':id', $row[0], \PDO::PARAM_INT);
       $stmt->bindValue(':score', $score, \PDO::PARAM_INT);
       $stmt->execute();
@@ -141,6 +144,7 @@ SQL;
         SET pattern = :pattern
         WHERE id_pattern = :id;
 SQL;
+      $stmt = $this->bd->prepare($sql);
       $stmt->bindValue(':id', $row[2], \PDO::PARAM_INT);
       $stmt->bindValue(':pattern', $pattern, \PDO::PARAM_STR);
       $stmt->execute();
@@ -161,6 +165,7 @@ SQL;
         SET score = :score
         WHERE id_score = :id;
 SQL;
+      $stmt = $this->bd->prepare($sql);
       $stmt->bindValue(':id', $row[0], \PDO::PARAM_INT);
       $stmt->bindValue(':score', $score, \PDO::PARAM_INT);
       $stmt->execute();
@@ -170,6 +175,7 @@ SQL;
         SET pattern = :pattern
         WHERE id_pattern = :id;
 SQL;
+      $stmt = $this->bd->prepare($sql);
       $stmt->bindValue(':id', $row[2], \PDO::PARAM_INT);
       $stmt->bindValue(':pattern', $pattern, \PDO::PARAM_STR);
       $stmt->execute();
