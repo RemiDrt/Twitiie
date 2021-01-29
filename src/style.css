@@ -149,4 +149,12 @@ audio{
 .game button{
 	width: 95px;
 }
+#Score {
+	text-align: center;
+}
+#sauvegarde {
+	margin-right: auto;
+	margin-left: auto;
+	display: block;
+}
 
