@@ -3,7 +3,7 @@ require "Model/Model.php"; // a voir dans le futur si on en a vrmt besoin ici
 require "Model/Player.php"; // a voir dans le futur si on en a vrmt besoin ici
 require "Controller/Controller.php"; //Inclusion de la classe Controller
 
-$controllers = ["Connexion", "Home", "InfosJoueurs", "Inscription", "Jeux"];
+$controllers = ["Connexion", "Home", "InfosJoueur", "Inscription", "Jeux"];
 $controller_default = "Connexion";
 
 //On teste si le paramètre controller existe et correspond à un controlleur de la liste $controllers

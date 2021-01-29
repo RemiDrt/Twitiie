@@ -2,29 +2,32 @@
 
 class ControllerInfosJoueur extends Controller {
     public function action_infosJoueur(){
-        $mod = Model::getModel();
-        /*
-         * tester les fonction et mettre tous les resultats dans le tableau $data
+        /**
+         * Récuperer les infos d'un joueur (on a son pseudo dans le post)
          */
-        $data = [];
+        echo "coucou action_infosJoueur";
+        var_dump($_POST);
+        $pseudo = htmlspecialchars($_POST["username"]);
+        echo "apres html special schars";
+        $data = $this->findScore($pseudo);
+        echo "apres fct find score";
         $this->render("InfosJoueur", $data);
-
     }
 
     public function action_default(){
-        $this->action_infosJoueurs();
+        $this->action_infosJoueur();
     }
 
     public function findScore($pseudoUser){
       $mod = Model::getModel();
       $result = $mod->findScoreByPseudo($pseudoUser);
-      $data['Pseudo'] = $value['pseudo'];
-      $data['PlayerScoreWeek'] = $value['scoreweek'];
-      $data['PlayerPatternWeek'] = $value['paternweek'];
-      $data['PlayerScoreMon'] = $value['scoremon'];
-      $data['PlayerPatternMon'] = $value['paternmon'];
-      $data['PlayerScoreTot'] = $value['scoretot'];
-      $data['PlayerPatternTot'] = $value['paterntot'];
+      $data['Pseudo'] = $result['pseudo'];
+      $data['PlayerScoreWeek'] = $result['scoreweek'];
+      $data['PlayerPatternWeek'] = $result['patternweek'];
+      $data['PlayerScoreMon'] = $result['scoremon'];
+      $data['PlayerPatternMon'] = $result['patternmon'];
+      $data['PlayerScoreTot'] = $result['scoretot'];
+      $data['PlayerPatternTot'] = $result['patterntot'];
       return $data;
     }
 }
