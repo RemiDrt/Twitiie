@@ -50,6 +50,7 @@ class Model {
   public function createPlayer(Player $player) {
     for ($i = 0; $i < 3; $i++) {
       try{
+        //Add pattern in database
         $sql = <<<SQL
         INSERT INTO PATTERN(pattern)
         VALUES('n');
@@ -64,12 +65,8 @@ SQL;
         $stmt = $this->bd->prepare($sql);
         $stmt->execute();
       } catch(PDOException $e){
-
         die('Echec createPlayer, erreur n°' . $e->getCode() . ':' . $e->getMessage());
       }
-  
-      //Add pattern in database
-      
     }
     //Add player (connected to scores)
     try {
@@ -85,7 +82,6 @@ SQL;
     } catch(PDOException $e){
       die('Echec createPlayer, erreur n°' . $e->getCode() . ':' . $e->getMessage());
     }
-    
   }
 
   /*
@@ -199,7 +195,7 @@ SQL;
     } catch(PDOException $e){
       die('Echec PlayerPseudoExist, erreur n°' . $e->getCode() . ':' . $e->getMessage());
     }
-    
+
   }
 
   /*
@@ -221,7 +217,7 @@ SQL;
     } catch(PDOException $e){
       die('Echec PlayerMailExist, erreur n°' . $e->getCode() . ':' . $e->getMessage());
     }
-    
+
   }
 
   /*
@@ -245,7 +241,7 @@ SQL;
     } catch(PDOException $e){
       die('Echec FindPasswordByMail, erreur n°' . $e->getCode() . ':' . $e->getMessage());
     }
-    
+
   }
 
   /*
