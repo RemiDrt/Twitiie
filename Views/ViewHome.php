@@ -1,4 +1,8 @@
-<?php require "Header.php"; ?>
+<?php require "Header.php"; 
+session_start();
+var_dump($_SESSION);
+var_dump($data);
+?>
         <main>
 
             <div class="game">
@@ -11,6 +15,78 @@
             <button id="sauvegarde">
                 Stop
             </button>
+
+            <table>
+                <tr><th>TOP 10 PLAYER</th></tr>
+                <tr>
+                    <th>Player</th>
+                    <th>Score</th>
+                </tr>
+                <?php foreach($data["Tops10"]["Top10Tot"] as $key => $val) : ?>
+                <tr>
+                    <td><?=$val["pseudo"]?></td>
+                    <td><?=$val["score"]?></td>
+                </tr>
+                <?php endforeach ?>
+
+            </table>
+
+            <table>
+                <tr><th>TOP 10 PLAYER OF THE MONTH</th></tr>
+                <tr>
+                    <th>Player</th>
+                    <th>Score</th>
+                </tr>
+                <?php foreach($data["Tops10"]["Top10Mon"] as $key => $val) : ?>
+                <tr>
+                    <td><?=$val["pseudo"]?></td>
+                    <td><?=$val["score"]?></td>
+                </tr>
+                <?php endforeach ?>
+
+            </table>
+
+            <table>
+                <tr><th>TOP 10 PLAYER OF THE WEEK</th></tr>
+                <tr>
+                    <th>Player</th>
+                    <th>Score</th>
+                </tr>
+                <?php foreach($data["Tops10"]["Top10Week"] as $key => $val) : ?>
+                <tr>
+                    <td><?=$val["pseudo"]?></td>
+                    <td><?=$val["score"]?></td>
+                </tr>
+                <?php endforeach ?>
+            </table>
+
+            <table>
+                <tr><th><?=$_SESSION["userObject"]["pseudo"]?></th></tr>
+                <tr>
+                    <th>Score</th>
+                    <th>Pattern</th>
+                </tr>
+                <tr>
+                    <th>Ever</th>
+                    <td><?=$data["Player"]["PlayerScoreTot"]?></td>
+                    <td><?=$data["Player"]["PlayerPatternTot"]?></td>
+                </tr>
+                <tr>
+                    <th>Month</th>
+                    <td><?=$data["Player"]["PlayerScoreMon"]?></td>
+                    <td><?=$data["Player"]["PlayerPatternMon"]?></td>
+                </tr>
+                <tr>
+                    <th>Week</th>
+                    <td><?=$data["Player"]["PlayerScoreWeek"]?></td>
+                    <td><?=$data["Player"]["PlayerPatternWeek"]?></td>
+                </tr>
+            </table>
+
+
+
+
+
 
 
             <div id="formulaire-infosJoueurs">

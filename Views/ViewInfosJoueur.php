@@ -26,6 +26,8 @@ var_dump($data);
 </table>
 
 
+<a href="?controller=Home&action=home">Retour home</a>
+
 
 
 <?php require "Footer.php"; ?>

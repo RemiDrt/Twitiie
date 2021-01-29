@@ -22,6 +22,7 @@ $nom_fichier = 'Controller/'.$nom_classe.'.php';
 if(file_exists($nom_fichier)) {
     include_once $nom_fichier;
     $controller = new $nom_classe();
+    
 } else {
     exit("Error 404: not found!");
 }

@@ -13,14 +13,10 @@ class ControllerConnexion extends Controller{
 
 
 		$passwordEncrypted = password_hash(htmlspecialchars($_POST['password']), PASSWORD_DEFAULT);
-		echo $passwordEncrypted;
-		var_dump($req);
-		echo $req['password'];
 		  // Si le mot de passe encrypté correspond au mot de passe encrypté de la bdd
     	if ( password_verify(htmlspecialchars($_POST['password']), $req['password'] ) ) {
-
-    		session_start();
-    		$_SESSION['userObject'] = $req;
+			session_start();
+			$_SESSION['userObject'] = $req;
     		$data = ['userID' => $req['id'] ];
     		$this->render("Home", $data);
 

@@ -4,11 +4,15 @@ class ControllerHome extends Controller {
 
 
     public function action_home(){
-        $mod = Model::getModel();
         /*
          * tester les fonction et mettre tous les resultats dans le tableau $data
          */
-        $data = array_merge(findTops10(), findScore());
+        $top10 = $this->findTops10();
+        $scores = $this->findScore();
+        $data = [
+          'Tops10' => $top10,
+          'Player' => $scores,
+        ];
         $this->render("Home", $data);
 
     }
@@ -45,6 +49,7 @@ class ControllerHome extends Controller {
 
     public function findScore(){
       $mod = Model::getModel();
+      session_start();
       $pseudoUser = $_SESSION["userObject"]['pseudo'];
       $result = $mod->findScoreByPseudo($pseudoUser);
       $data['PlayerScoreWeek'] = $result['scoreweek'];
